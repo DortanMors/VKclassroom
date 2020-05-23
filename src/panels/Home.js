@@ -7,9 +7,14 @@ import Group from '@vkontakte/vkui/dist/components/Group/Group';
 import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
+import '../img/persik.png'
 
+const Home = ({ id, go, fetchedUser }) => {
+	state = {
+		isPersikOpen: false
+	}
 
-const Home = ({ id, go, fetchedUser }) => (
+	return (
 	<Panel id={id}>
 		<PanelHeader>VK classroom</PanelHeader>
 		{fetchedUser &&
@@ -24,13 +29,29 @@ const Home = ({ id, go, fetchedUser }) => (
 
 		<Group title="Navigation Example">
 			<Div>
-				<Button size="xl" level="2" onClick={()=> go('home')} data-to="persik">
+				<Button size="xl" level="2" onClick={() => this.setState({isOpen:true})} data-to="persik">
 					Show me the Persik, please
 				</Button>
+				
+					
+
 			</Div>
 		</Group>
+
+		<React.Fragment>
+                {this.state.isOpen && 
+                    (<div className='modal'>
+                        <div className='modal-body'>
+                            <h1>Persik</h1>
+                            <Avatar src='./img/persik.png' />
+                            <button onClick={() => this.setState({isOpen:false})}>Close persik</button>
+                        </div>
+                    </div>)
+                }
+        </React.Fragment>
 	</Panel>
 );
+}
 
 Home.propTypes = {
 	id: PropTypes.string.isRequired,
