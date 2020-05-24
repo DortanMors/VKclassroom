@@ -26,7 +26,7 @@ const App = () => {
 	const [userSawIntro, setUserSawIntro] = useState(false);
 	const [snackBar, setSnackBar] = useState(null);
 	const [userToken, setUserToken] = useState(null);
-
+	const [userDocs, setUserDocs] = useState(null);
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -75,33 +75,28 @@ const App = () => {
 		}
 		fetchData();
 
-		async function fetchDocs() {
-			return await bridge.send('VKWebAppCallAPIMethod', {
-				method: 'docs.get', request_id:'32test', params: {
-					count: 5,
-					offset:0,
-					v: '5.103',
-					access_token: userToken
-				}
-			});
-		}
-
 		async function fetchToken() {
 			const token = await bridge.send('VKWebAppGetAuthToken', {
 				app_id: 7472666, scope: 'friends,status,docs'});
 			console.log(token);
 			setUserToken(token);
-		}
-		fetchToken().then(()=>{
-			fetchDocs().then(docs=>{
-				console.log(docs);
-			},
-			()=> {
-				console.log('лох');
-			}
-			);
-			}
-		);
+			const docs = await bridge.send('VKWebAppCallAPIMethod', {
+				method: 'docs.get', request_id:'32test', params: {
+					count: 5,
+					offset:0,
+					type: 0,
+					v: '5.103',
+					access_token: token.access_token
+				}
+			});
+			console.log(docs);
+			setUserDocs(docs);
+		};
+		fetchToken();
+
+		
+
+		
 	}, []);
 
 	const go = (panel) => {
@@ -148,7 +143,7 @@ const App = () => {
 
 	return (
 		<View activePanel={activePanel} popout={popout}>
-			<Home id={ROUTES.HOME} fetchedUser={fetchedUser} go={persik} snackbarError={snackBar}/>
+			<Home id={ROUTES.HOME} fetchedUser={fetchedUser} go={persik} snackbarError={snackBar} token={userToken} docs={userDocs}/>
 			<Intro id={ROUTES.INTRO} go={viewIntro} fetchedUser={fetchedUser} snackbarError={snackBar} userSawIntro={userSawIntro}/>
 		</View>
 	);

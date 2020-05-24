@@ -12,8 +12,9 @@
 
 .modal-body{
     padding: 2rem;
-    width: 400px;
+    width: 200px;
     height: 200px;
     border-radius: 5px;
+    justify-content: center;
     background: #fff;
 }
