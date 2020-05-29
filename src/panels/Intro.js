@@ -1,56 +1,66 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
-import Group from '@vkontakte/vkui/dist/components/Group/Group';
-import FixedLayout from '@vkontakte/vkui/dist/components/FixedLayout/FixedLayout';
-import Button from '@vkontakte/vkui/dist/components/Button/Button';
-import Div from '@vkontakte/vkui/dist/components/Div/Div';
+import React, { Fragment, Component } from 'react';
+import {connect} from 'react-redux';
+import { Panel, PanelHeader, Avatar, Group, FixedLayout, Button, Div, Snackbar } from '@vkontakte/vkui'
+import Icon24Error from '../../node_modules/@vkontakte/icons/dist/24/error.js';
+import { setStorageSawIntro } from '../store/vk/actions'
 
 import './Intro.css';
+import '@vkontakte/vkui/dist/vkui.css';
 
-const Intro = ({id, snackbarError, fetchedUser, go, userSawIntro}) => {
-	return(
-		<Panel id={id} centered={true}>
+class Intro extends Component {
+	render() {
+		return (
+			<Panel id={this.props.id} centered={true}>
 			<PanelHeader>
 				VK classroom
 			</PanelHeader>
-			{(!userSawIntro && fetchedUser) &&
+			{(!this.props.store.appState.userSawIntro && this.props.store.appState.userInfo) &&
 				<Fragment>
 					<Group>
 						<Div className='userinfo'>
-							{fetchedUser.photo_200 && <Avatar src={fetchedUser.photo_200} />}
-							<h2>Здравствуйте, {fetchedUser.first_name}!</h2>
+							{this.props.store.appState.userInfo.photo_200 && <Avatar src={this.props.store.appState.userInfo.photo_200} />}
+							<h2>Здравствуйте, {this.props.store.appState.userInfo.first_name}!</h2>
 							<h3>Сервис находится в активной разработке, и, надеемся, в будущем поможет в организации дистанционного обучения!</h3>
 						</Div>
 					</Group>
 					<FixedLayout vertical='bottom'>
 						<Div>
-							<Button mode='commerce' size='xl' onClick={go}>
+							<Button mode='primary' size='xl' onClick={() => {
+									try{
+										this.props.dispatch(setStorageSawIntro(this.props.store.appState.storageKeys))
+										this.props.router.navigate('home')
+									}catch(error){
+										this.props.dispatch({
+											type: 'SET_SNACKBAR',
+											payload: <Snackbar 
+														layout='vertical' 
+														onClose={()=> this.props.dispatch({ type: 'SET_SNACKBAR', payload: null })}
+														before={<Avatar size={24} style={{backgroundColor: 'var(--dynamic-red)'}}>
+																<Icon24Error fill='#fff' width='14' height='14'/>
+															</Avatar>}
+														duration={666}>
+														Загрузка в Storage недоступна
+													</Snackbar>
+										})
+									}
+									
+								}}
+							>
 								Продолжить
 							</Button> 
 						</Div>
 					</FixedLayout>
 				</Fragment>
 			}
-			{snackbarError}
+			{this.props.store.appState.snackbar}
 		</Panel>
-	);
-};
+		);
+	}
+}
 
-Intro.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	snackbarError: PropTypes.any, // TODO поставить нормальный тип
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		})
-	})
-};
 
-export default Intro;
+function mapStateToProps(state) {
+    return {};
+}
+
+export default connect(mapStateToProps)(Intro);
