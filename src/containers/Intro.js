@@ -14,13 +14,13 @@ class Intro extends Component {
 			<PanelHeader>
 				VK classroom
 			</PanelHeader>
-			{(!this.props.userSawIntro && this.props.userInfo) &&
+			{this.props.userInfo &&
 				<Fragment>
 					<Group>
 						<Div className='userinfo'>
 							{this.props.userInfo.photo_200 && <Avatar src={this.props.userInfo.photo_200} />}
 							<h2>Здравствуйте, {this.props.userInfo.first_name}!</h2>
-							<h3>Сервис находится в активной разработке, и, надеемся, в будущем поможет в организации дистанционного обучения!</h3>
+							<h3>Такие дела</h3>
 						</Div>
 					</Group>
 					<FixedLayout vertical='bottom'>

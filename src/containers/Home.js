@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Panel, PanelHeader, Button, Group, Cell, Avatar, List } from '@vkontakte/vkui';
+import { Panel, PanelHeader, Button, Group, Cell, Avatar, List, Div } from '@vkontakte/vkui';
 import Modal from '../Modal'
 import Icon24Document from '@vkontakte/icons/dist/24/document';
 import { fetchDocs } from '../store/vk/actions';
-
 
 class Home extends Component {
 
@@ -23,19 +22,23 @@ class Home extends Component {
 					</Cell>
 				</Group>}
 				<Group title='Docs and sucks'>
-					<Button  size="xl" level="2" onClick={() =>{
-						this.props.dispatch(fetchDocs());
-					}}> Чекнуть доки </Button>
+					<Div>
+						<Button  size="xl" level="2" onClick={() =>{
+							this.props.dispatch(fetchDocs());
+						}}> 
+							Чекнуть доки
+						</Button>
+					</Div>
+					<List>
+						{ this.props.userDocs && this.props.userDocs.response.hasOwnProperty('items') && this.props.userDocs.response.items.map((doc, index)=>{
+							return(
+								<Cell key={index} href={doc.url} before={<Avatar size={24}><Icon24Document width='14' height='14' /></Avatar>}>
+									{doc.title}
+								</Cell>
+							)
+						})}
+					</List>
 				</Group>
-				<List>
-					{ this.props.userDocs && this.props.userDocs.response.hasOwnProperty('items') && this.props.userDocs.response.items.map((doc, index)=>{
-						return(
-							<Cell key={index} href={doc.url} before={<Avatar size={24}><Icon24Document width='14' height='14' /></Avatar>}>
-								{doc.title}
-							</Cell>
-						)
-					})}
-				</List>
 				<Modal />
 			</Panel>
 		);
