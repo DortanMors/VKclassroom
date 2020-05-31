@@ -58,3 +58,31 @@ export default function appState(state = initialState, action) {
   }
   return state;
 }
+
+export function getAccessToken(state){
+  return state.appState.access_token
+}
+
+export function getUserInfo(state){
+  return state.appState.userInfo
+}
+
+export function getPopout(state){
+  return state.appState.popout
+}
+
+export function getUserSawIntro(state){
+  return state.appState.userSawIntro
+}
+
+export function getUserDocs(state){
+  return state.appState.userDocs
+}
+
+export function getSnackbar(state){
+  return state.appState.snackbar
+}
+
+export function getStorageKeys(state){
+  return state.appState.storageKeys
+}

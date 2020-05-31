@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import {connect} from 'react-redux';
 import { Panel, PanelHeader, Avatar, Group, FixedLayout, Button, Div, Snackbar } from '@vkontakte/vkui'
-import Icon24Error from '../../node_modules/@vkontakte/icons/dist/24/error.js';
+import Icon24Error from '@vkontakte/icons/dist/24/error';
 import { setStorageSawIntro } from '../store/vk/actions'
 
 import './Intro.css';
@@ -14,12 +14,12 @@ class Intro extends Component {
 			<PanelHeader>
 				VK classroom
 			</PanelHeader>
-			{(!this.props.store.appState.userSawIntro && this.props.store.appState.userInfo) &&
+			{(!this.props.userSawIntro && this.props.userInfo) &&
 				<Fragment>
 					<Group>
 						<Div className='userinfo'>
-							{this.props.store.appState.userInfo.photo_200 && <Avatar src={this.props.store.appState.userInfo.photo_200} />}
-							<h2>Здравствуйте, {this.props.store.appState.userInfo.first_name}!</h2>
+							{this.props.userInfo.photo_200 && <Avatar src={this.props.userInfo.photo_200} />}
+							<h2>Здравствуйте, {this.props.userInfo.first_name}!</h2>
 							<h3>Сервис находится в активной разработке, и, надеемся, в будущем поможет в организации дистанционного обучения!</h3>
 						</Div>
 					</Group>
@@ -27,7 +27,7 @@ class Intro extends Component {
 						<Div>
 							<Button mode='primary' size='xl' onClick={() => {
 									try{
-										this.props.dispatch(setStorageSawIntro(this.props.store.appState.storageKeys))
+										this.props.dispatch(setStorageSawIntro(this.props.storageKeys))
 										this.props.router.navigate('home')
 									}catch(error){
 										this.props.dispatch({
@@ -52,7 +52,7 @@ class Intro extends Component {
 					</FixedLayout>
 				</Fragment>
 			}
-			{this.props.store.appState.snackbar}
+			{this.props.snackbar}
 		</Panel>
 		);
 	}
