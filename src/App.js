@@ -5,6 +5,7 @@ import { RouteNode } from 'react-router5'
 import * as vkActions from './store/vk/actions';
 import * as selectors from './store/reducers/appState'
 import Home from './containers/Home';
+import GamePanel from './containers/GamePanel';
 import Intro from './containers/Intro';
 import Footer from './containers/Footer'
 
@@ -26,8 +27,8 @@ class App extends Component{
             case 'home':
                 activeStory = 'homeView';
                 break;
-            case 'home2':
-                activeStory = 'home2View';
+            case 'game':
+                activeStory = 'gameView';
                 break;
             default:
                 break;
@@ -52,12 +53,11 @@ class App extends Component{
                             userInfo={this.props.userInfo}
                         />
                     </View>
-                    <View id="home2View" activePanel="home2Panel" popout={this.props.popout}>
-                        <Home 
+                    <View id="gameView" activePanel="gamePanel" popout={this.props.popout} onTransition={()=> this.props.dispatch(vkActions.setGame())}>
+                        <GamePanel 
                             router={this.props.router}
-                            id="home2Panel"
+                            id="gamePanel"
                             accessToken={this.props.accessToken}
-                            userDocs={this.props.userDocs}
                             userInfo={this.props.userInfo}
                         />
                     </View>

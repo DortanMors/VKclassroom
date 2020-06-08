@@ -10,53 +10,55 @@ const initialState = {
   userDocs: null,
   storageKeys: {
     STATUS: 'status'
-  }
+  },
+  game: null
 }
   
 export default function appState(state = initialState, action) {
-  if (action.type === 'UPDATE_USERSAWINTRO') {
-    return {
-      ...state,
-      userSawIntro: action.payload
-    };
-  } 
-  else if (action.type === 'UPDATE_USERINFO') {
-    return {
+  switch(action.type) {
+    case 'UPDATE_USERSAWINTRO':
+      return {
+        ...state,
+        userSawIntro: action.payload
+      };
+    case 'UPDATE_USERINFO':
+      return {
         ...state,
         userInfo: action.payload
-    };
-  } 
-  else if (action.type === 'UPDATE_ACCESSTOKEN') {
-      return {
-          ...state,
-          access_token: action.payload
       };
-  }
-  else if (action.type === 'SET_POPOUT') {
-    return {
+    case 'UPDATE_ACCESSTOKEN':
+      return {
+        ...state,
+        access_token: action.payload
+      };
+    case 'SET_POPOUT':
+      return {
         ...state,
         popout: action.payload
-    };
-  }
-  else if (action.type === 'SET_SNACKBAR') {
-    return {
+      };
+    case 'SET_SNACKBAR':
+      return {
         ...state,
         snackbar: action.payload
-    };
-  }
-  else if (action.type === 'UPDATE_USERDOCS') {
-    return {
+      };
+    case 'UPDATE_USERDOCS':
+      return {
         ...state,
         userDocs: action.payload
-    };
-  }
-  else if (action.type === 'UPDATE_STORAGEKEYS') {
-    return {
+      };
+    case 'UPDATE_STORAGEKEYS':
+      return {
         ...state,
         storageKeys: action.payload
-    };
+      };
+    case 'SET_GAME':
+      return {
+        ...state,
+        game: action.payload
+      };
+    default:
+      return state;
   }
-  return state;
 }
 
 export function getAccessToken(state){
@@ -85,4 +87,8 @@ export function getSnackbar(state){
 
 export function getStorageKeys(state){
   return state.appState.storageKeys
+}
+
+export function getGame(state){
+  return state.appState.game
 }

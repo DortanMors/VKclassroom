@@ -3,6 +3,8 @@ import { Tabbar, TabbarItem } from '@vkontakte/vkui';
 import {connect} from 'react-redux';
 import Icon28InfoOutline from '@vkontakte/icons/dist/28/info_outline';
 import Icon28HomeOutline from '@vkontakte/icons/dist/28/home_outline';
+import Icon28Game from '@vkontakte/icons/dist/28/game';
+import Icon28GameOutline from '@vkontakte/icons/dist/28/game_outline';
 
 import '@vkontakte/vkui/dist/vkui.css';
 
@@ -21,6 +23,17 @@ class Footer extends Component {
                     }
                 >
                     <Icon28HomeOutline />
+                </TabbarItem>
+                <TabbarItem 
+                    text="Погнали"
+                    selected={this.props.route.name==='game'? true : false}
+                    onClick={() => {
+                        if(this.props.route.name!=='game')
+                            this.props.router.navigate('game',{},{replace:true});
+                        }
+                    }
+                >
+                    {this.props.route.name==='game'? <Icon28GameOutline /> : <Icon28Game /> }
                 </TabbarItem>
                 <TabbarItem 
                     text="О приложении"

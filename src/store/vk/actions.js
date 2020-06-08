@@ -1,4 +1,5 @@
 import bridge from "@vkontakte/vk-bridge";
+import * as PIXI from 'pixi.js'
 
 export function initApp(){
     return async (dispatch) => {
@@ -90,7 +91,7 @@ export function fetchDocs(){
         dispatch({
             type: 'UPDATE_USERDOCS',
             payload: docs
-        })
+        });
     }
 }
 
@@ -101,6 +102,59 @@ export function setStorageSawIntro(STORAGE_KEYS){
             value: JSON.stringify({
                 sawIntro: true
             })
+        });
+    }
+}
+
+export function setGame() {
+    return (dispatch) => {
+        var width = window.innerWidth; //получаем ширину экрана
+        var height = window.innerHeight; // получаем высоту экрана
+        const app = new PIXI.Application(width,height); //создаем глобальную переменную нашей игры
+
+        /*var model = {
+            createCanvas: function() {
+                app = new PIXI.Application(width, height); //создаем холст
+                document.body.appendChild(app.view); //выводим его в тело страницы
+            }
+        }*/
+        document.body.appendChild(app.view);
+ 
+        const texture = PIXI.Texture.from('C:/Users/Dortan/Documents/NodeJs/classroom/src/img/persik.png');
+        var persikSprite = new PIXI.Sprite(texture);
+        app.stage.addChild(persikSprite);
+        persikSprite.x = app.screen.width / 2;
+        persikSprite.y = app.screen.height / 2;
+
+        /*
+        app.loader.add('persik', '../../img/persik.png').load((loader, resources) => {
+        
+            const persik = new PIXI.Sprite(resources.persik.texture);
+        
+            // Setup the position of the persik
+            persik.x = app.renderer.width / 2;
+            persik.y = app.renderer.height / 2;
+        
+            // Rotate around the center
+            persik.anchor.x = 0.5;
+            persik.anchor.y = 0.5;
+        
+            // Add the bunny to the scene we are building.
+            app.stage.addChild(persik);
+        
+            // Listen for frame updates
+            app.ticker.add(() => {
+                // each frame we spin the bunny around a bit
+                persik.rotation += 0.01;
+            });
+        });
+        */
+        app.ticker.add((delta) => {
+            persikSprite.rotation += 0.01 * delta;
+        });
+        dispatch({
+            type: 'SET_GAME',
+            payload: app
         });
     }
 }

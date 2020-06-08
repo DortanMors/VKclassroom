@@ -4,6 +4,7 @@ import { Panel, PanelHeader, Button, Group, Cell, Avatar, List, Div } from '@vko
 import Modal from '../Modal'
 import Icon24Document from '@vkontakte/icons/dist/24/document';
 import { fetchDocs } from '../store/vk/actions';
+import Srand from 'prng';
 
 class Home extends Component {
 
@@ -21,6 +22,16 @@ class Home extends Component {
 						{`${this.props.userInfo.first_name} ${this.props.userInfo.last_name}`}
 					</Cell>
 				</Group>}
+				<Div>
+						<Button  size="xl" level="2" onClick={() =>{
+							let prng = new Srand(this.props.userInfo.city.id);
+							for(let i = 1; i<10; ++i){
+									console.log(prng.rand(-10,10));
+							}
+						}}> 
+							Рандомнуть
+						</Button>
+					</Div>
 				<Group title='Docs and sucks'>
 					<Div>
 						<Button  size="xl" level="2" onClick={() =>{
