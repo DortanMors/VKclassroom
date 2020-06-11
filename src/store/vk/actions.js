@@ -105,19 +105,19 @@ export function setStorageSawIntro(STORAGE_KEYS){
         });
     }
 }
-
+/*
 export function setGame() {
     return (dispatch) => {
         var width = window.innerWidth; //получаем ширину экрана
         var height = window.innerHeight; // получаем высоту экрана
         const app = new PIXI.Application(width,height); //создаем глобальную переменную нашей игры
 
-        /*var model = {
+        /var model = {
             createCanvas: function() {
                 app = new PIXI.Application(width, height); //создаем холст
                 document.body.appendChild(app.view); //выводим его в тело страницы
             }
-        }*/
+        }
         document.body.appendChild(app.view);
  
         const texture = PIXI.Texture.from('C:/Users/Dortan/Documents/NodeJs/classroom/src/img/persik.png');
@@ -126,7 +126,7 @@ export function setGame() {
         persikSprite.x = app.screen.width / 2;
         persikSprite.y = app.screen.height / 2;
 
-        /*
+        
         app.loader.add('persik', '../../img/persik.png').load((loader, resources) => {
         
             const persik = new PIXI.Sprite(resources.persik.texture);
@@ -148,7 +148,7 @@ export function setGame() {
                 persik.rotation += 0.01;
             });
         });
-        */
+        
         app.ticker.add((delta) => {
             persikSprite.rotation += 0.01 * delta;
         });
@@ -158,7 +158,7 @@ export function setGame() {
         });
     }
 }
-
+*/
 export function setRotation(angle){
     return async (dispatch) => {
         setTimeout(() => {

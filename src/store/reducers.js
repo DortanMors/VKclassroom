@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import appState from './reducers/appState';
 import userState from './reducers/userState';
 import classroomState from './reducers/classroomState';
+import gameState from './reducers/gameState';
 
 export default function configureStore(router, initialState = {}) {
     const createStoreWithMiddleware = applyMiddleware(
@@ -19,7 +20,8 @@ export default function configureStore(router, initialState = {}) {
             router: router5Reducer,
             appState,
             userState,
-            classroomState
+            classroomState,
+            gameState
         }),
         initialState
     )

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Panel, PanelHeader, Button, Group, Cell, Avatar, List, Div } from '@vkontakte/vkui';
-import Modal from '../Modal'
 import Icon24Document from '@vkontakte/icons/dist/24/document';
 import { fetchDocs } from '../store/vk/actions';
 import Srand from 'prng';

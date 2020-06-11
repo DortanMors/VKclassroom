@@ -3,7 +3,8 @@ import { connect } from 'react-redux'
 import { View, Epic, ConfigProvider } from '@vkontakte/vkui';
 import { RouteNode } from 'react-router5'
 import * as vkActions from './store/vk/actions';
-import * as selectors from './store/reducers/appState'
+import * as selectors from './store/reducers/appState';
+import * as gameSelectors from './store/reducers/gameState';
 import Home from './containers/Home';
 import GamePanel from './containers/GamePanel';
 import Intro from './containers/Intro';
@@ -94,7 +95,7 @@ function mapStateToProps(state) {
         userSawIntro: selectors.getUserSawIntro(state),
         storageKeys: selectors.getStorageKeys(state),
         snackbar: selectors.getSnackbar(state),
-        rotation: selectors.getRotation(state)
+        rotation: gameSelectors.getRotation(state)
     };
 }
 
