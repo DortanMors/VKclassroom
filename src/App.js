@@ -57,8 +57,7 @@ class App extends Component{
                         <GamePanel 
                             router={this.props.router}
                             id="gamePanel"
-                            accessToken={this.props.accessToken}
-                            userInfo={this.props.userInfo}
+                            rotation={this.props.rotation}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -94,7 +93,8 @@ function mapStateToProps(state) {
         userInfo: selectors.getUserInfo(state),
         userSawIntro: selectors.getUserSawIntro(state),
         storageKeys: selectors.getStorageKeys(state),
-        snackbar: selectors.getSnackbar(state)
+        snackbar: selectors.getSnackbar(state),
+        rotation: selectors.getRotation(state)
     };
 }
 

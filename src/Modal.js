@@ -13,7 +13,11 @@ export default class Modal extends React.Component{
         return(
             <React.Fragment>
                 <Group title='Showing Persik'>
-                    <Div>
+                    <Div style={{
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center'
+			}}>
                         <Button size="xl" level="2" onClick={() => this.setState({isOpen:true})} data-to="persik">
                             Show me the Persik, please
                         </Button>

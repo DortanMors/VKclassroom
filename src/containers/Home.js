@@ -50,7 +50,6 @@ class Home extends Component {
 						})}
 					</List>
 				</Group>
-				<Modal />
 			</Panel>
 		);
 	}

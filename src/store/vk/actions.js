@@ -159,3 +159,13 @@ export function setGame() {
     }
 }
 
+export function setRotation(angle){
+    return async (dispatch) => {
+        setTimeout(() => {
+            dispatch({
+                type: 'SET_ROTATION',
+                payload: angle
+            })
+        }, 50);
+    }
+}

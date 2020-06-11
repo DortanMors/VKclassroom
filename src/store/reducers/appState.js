@@ -11,7 +11,8 @@ const initialState = {
   storageKeys: {
     STATUS: 'status'
   },
-  game: null
+  game: null,
+  rotation: 0
 }
   
 export default function appState(state = initialState, action) {
@@ -56,6 +57,11 @@ export default function appState(state = initialState, action) {
         ...state,
         game: action.payload
       };
+    case 'SET_ROTATION':
+      return {
+        ...state,
+        rotation: action.payload
+      }
     default:
       return state;
   }
@@ -91,4 +97,8 @@ export function getStorageKeys(state){
 
 export function getGame(state){
   return state.appState.game
+}
+
+export function getRotation(state){
+  return state.appState.rotation
 }

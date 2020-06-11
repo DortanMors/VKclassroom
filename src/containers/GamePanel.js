@@ -1,27 +1,31 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {setGame} from '../store/vk/actions';
-import { GLView } from 'expo-gl'
-import ExpoPixi from 'expo-pixi'
+import { Stage, Sprite } from '@inlet/react-pixi';
+import Persik from '../img/persik.png'
+import * as vkActions from '../store/vk/actions';
 
-class GamePanel extends React.Component {
+class GamePanel extends Component {
 
 	render() {
-
+		this.props.dispatch(vkActions.setRotation(this.props.rotation+0.1));
 		return(
-			<GLView
-				style={{flex:1}}
-				onContextCreate={context => {
-					const app = ExpoPixi.application({context});
-					const persik = ExpoPixi.sprite('../../img/persik.png');
-					app.stage.addChild(persik);
-					persik.anchor.set(0.5);
-					persik.x = app.screen.width/2;
-					persik.y = app.screen.height/2;
-					app.ticker.add(()=> persik.rotation += 0.03);
-					this.props.dispatch(setGame(app));
-				}}
-			/>
+			<div style={{
+				display: 'flex',
+				alignContent: 'center',
+				justifyContent: 'center'
+			}} >
+			<Stage 
+			width={300} height={300} options={{ backgroundColor: 0xffffffff }}>
+				<Sprite 
+					image={Persik}
+					scale={{ x: 0.2, y: 0.2 }}
+					anchor={0.5}
+					x={150}
+					y={175}
+					rotation={this.props.rotation}
+				/>
+			</Stage>
+			</div>
 		);
 	}
 }
