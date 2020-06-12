@@ -1,16 +1,20 @@
-import React from 'react'
-
 const initialState = {
   game: null,
+  city: null,
   rotation: 0
 }
   
-export default function appState(state = initialState, action) {
+export default function gameState(state = initialState, action) {
   switch(action.type) {
     case 'SET_ROTATION':
       return {
         ...state,
         rotation: action.payload
+      }
+    case 'SET_CITY':
+      return {
+        ...state,
+        city: action.payload
       }
     default:
       return state;
@@ -18,9 +22,13 @@ export default function appState(state = initialState, action) {
 }
 
 export function getGame(state){
-  return state.appState.game
+  return state.gameState.game
 }
 
 export function getRotation(state){
-  return state.appState.rotation
+  return state.gameState.rotation
+}
+
+export function getCity(state){
+  return state.gameState.city;
 }

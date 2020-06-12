@@ -1,5 +1,4 @@
 import bridge from "@vkontakte/vk-bridge";
-import * as PIXI from 'pixi.js'
 
 export function initApp(){
     return async (dispatch) => {
@@ -28,7 +27,7 @@ export function initApp(){
     }
 }
 
-export function fetchData(STORAGE_KEYS){
+export function fetchData(STORAGE_KEYS, create_city){
     return async (dispatch) => {
         const user = await bridge.send('VKWebAppGetUserInfo');
         const storageData = await bridge.send('VKWebAppStorageGet', {
@@ -53,7 +52,7 @@ export function fetchData(STORAGE_KEYS){
                         break;
                 }
             }catch(error){
-                console.log('Бля, не узнал, про intro', error()); // обработать
+                console.log('Не узнал, про intro', error()); // обработать
             }
         })
         dispatch({
@@ -63,6 +62,11 @@ export function fetchData(STORAGE_KEYS){
         dispatch({
             type: "SET_POPOUT",
             payload: null
+        })
+        const city = create_city(user.city.id,0.2,20,30);
+        dispatch({
+            type: 'SET_CITY',
+            payload: city
         })
     }
 }
@@ -105,60 +109,11 @@ export function setStorageSawIntro(STORAGE_KEYS){
         });
     }
 }
-/*
-export function setGame() {
-    return (dispatch) => {
-        var width = window.innerWidth; //получаем ширину экрана
-        var height = window.innerHeight; // получаем высоту экрана
-        const app = new PIXI.Application(width,height); //создаем глобальную переменную нашей игры
 
-        /var model = {
-            createCanvas: function() {
-                app = new PIXI.Application(width, height); //создаем холст
-                document.body.appendChild(app.view); //выводим его в тело страницы
-            }
-        }
-        document.body.appendChild(app.view);
- 
-        const texture = PIXI.Texture.from('C:/Users/Dortan/Documents/NodeJs/classroom/src/img/persik.png');
-        var persikSprite = new PIXI.Sprite(texture);
-        app.stage.addChild(persikSprite);
-        persikSprite.x = app.screen.width / 2;
-        persikSprite.y = app.screen.height / 2;
 
-        
-        app.loader.add('persik', '../../img/persik.png').load((loader, resources) => {
-        
-            const persik = new PIXI.Sprite(resources.persik.texture);
-        
-            // Setup the position of the persik
-            persik.x = app.renderer.width / 2;
-            persik.y = app.renderer.height / 2;
-        
-            // Rotate around the center
-            persik.anchor.x = 0.5;
-            persik.anchor.y = 0.5;
-        
-            // Add the bunny to the scene we are building.
-            app.stage.addChild(persik);
-        
-            // Listen for frame updates
-            app.ticker.add(() => {
-                // each frame we spin the bunny around a bit
-                persik.rotation += 0.01;
-            });
-        });
-        
-        app.ticker.add((delta) => {
-            persikSprite.rotation += 0.01 * delta;
-        });
-        dispatch({
-            type: 'SET_GAME',
-            payload: app
-        });
-    }
-}
-*/
+
+
+// экшены для игры
 export function setRotation(angle){
     return async (dispatch) => {
         setTimeout(() => {
@@ -167,5 +122,11 @@ export function setRotation(angle){
                 payload: angle
             })
         }, 50);
+    }
+}
+
+export function setCity(city){
+    return (dispatch) => {
+        
     }
 }

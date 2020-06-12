@@ -8,14 +8,14 @@ import * as gameSelectors from './store/reducers/gameState';
 import Home from './containers/Home';
 import GamePanel from './containers/GamePanel';
 import Intro from './containers/Intro';
-import Footer from './containers/Footer'
+import Footer from './containers/Footer';
+import create_city from './City/create-city';
 
 import '@vkontakte/vkui/dist/vkui.css';
-
 class App extends Component{
 	componentDidMount() {
-		this.props.dispatch(vkActions.initApp());
-        this.props.dispatch(vkActions.fetchData(this.props.storageKeys));
+        this.props.dispatch(vkActions.initApp());
+        this.props.dispatch(vkActions.fetchData(this.props.storageKeys, create_city));
 	}
 	
 	render(){
@@ -43,6 +43,7 @@ class App extends Component{
                         route={this.props.route}
                         router={this.props.router}
                         open={this.props.router.navigate}
+                        onTransition={()=> console.log('Переключено!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')}
                     />}
                 >
                     <View id="homeView" activePanel="homePanel" popout={this.props.popout}>
@@ -54,11 +55,13 @@ class App extends Component{
                             userInfo={this.props.userInfo}
                         />
                     </View>
-                    <View id="gameView" activePanel="gamePanel" popout={this.props.popout} onTransition={()=> this.props.dispatch(vkActions.setGame())}>
+                    <View id="gameView" activePanel="gamePanel" popout={this.props.popout}>
                         <GamePanel 
                             router={this.props.router}
                             id="gamePanel"
                             rotation={this.props.rotation}
+                            city={this.props.city}
+                            userInfo={this.props.userInfo}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -88,14 +91,16 @@ class App extends Component{
 
 function mapStateToProps(state) {
     return {
-        accessToken: selectors.getAccessToken(state),
-        popout: selectors.getPopout(state),
-        userDocs: selectors.getUserDocs(state),
-        userInfo: selectors.getUserInfo(state),
+        accessToken:  selectors.getAccessToken(state),
+        popout:       selectors.getPopout(state),
+        userDocs:     selectors.getUserDocs(state),
+        userInfo:     selectors.getUserInfo(state),
         userSawIntro: selectors.getUserSawIntro(state),
-        storageKeys: selectors.getStorageKeys(state),
-        snackbar: selectors.getSnackbar(state),
-        rotation: gameSelectors.getRotation(state)
+        storageKeys:  selectors.getStorageKeys(state),
+        snackbar:     selectors.getSnackbar(state),
+
+        rotation: gameSelectors.getRotation(state),
+        city:     gameSelectors.getCity(state)
     };
 }
 

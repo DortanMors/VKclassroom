@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Stage, Sprite } from '@inlet/react-pixi';
 import Persik from '../img/persik.png'
-import * as vkActions from '../store/vk/actions';
 
 class GamePanel extends Component {
 
 	render() {
-		this.props.dispatch(vkActions.setRotation(this.props.rotation+0.1));
+		// this.props.dispatch(vkActions.setRotation(this.props.rotation+0.1));
 		return(
 			<div style={{
 				display: 'flex',
