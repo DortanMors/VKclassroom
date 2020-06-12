@@ -61,7 +61,7 @@ class App extends Component{
                             id="gamePanel"
                             rotation={this.props.rotation}
                             city={this.props.city}
-                            userInfo={this.props.userInfo}
+                            cityParameters={this.props.cityParameters}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -100,7 +100,8 @@ function mapStateToProps(state) {
         snackbar:     selectors.getSnackbar(state),
 
         rotation: gameSelectors.getRotation(state),
-        city:     gameSelectors.getCity(state)
+        city:     gameSelectors.getCity(state),
+        cityParameters: gameSelectors.getCityParameters(state)
     };
 }
 

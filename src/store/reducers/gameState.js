@@ -1,7 +1,12 @@
 const initialState = {
   game: null,
   city: null,
-  rotation: 0
+  rotation: 0,
+  cityParameters: {
+    tile_width: 10,
+    tile_height: 10,
+    //...
+  }
 }
   
 export default function gameState(state = initialState, action) {
@@ -31,4 +36,8 @@ export function getRotation(state){
 
 export function getCity(state){
   return state.gameState.city;
+}
+
+export function getCityParameters(state){
+  return state.gameState.cityParameters;
 }

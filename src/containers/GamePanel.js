@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Stage, Sprite } from '@inlet/react-pixi';
+import { Stage, Sprite, Container } from '@inlet/react-pixi';
 import Persik from '../img/persik.png'
 
 class GamePanel extends Component {
 
 	render() {
-		// this.props.dispatch(vkActions.setRotation(this.props.rotation+0.1));
 		return(
 			<div style={{
 				display: 'flex',
@@ -14,15 +13,26 @@ class GamePanel extends Component {
 				justifyContent: 'center'
 			}} >
 			<Stage 
-			width={300} height={300} options={{ backgroundColor: 0xffffffff }}>
-				<Sprite 
-					image={Persik}
-					scale={{ x: 0.2, y: 0.2 }}
-					anchor={0.5}
-					x={150}
-					y={175}
-					rotation={this.props.rotation}
-				/>
+				width={this.props.city.N * this.props.cityParameters.tile_width}
+				height={this.props.city.M * this.props.cityParameters.tile_height}
+				options={{ backgroundColor: 0xffffffff }}
+			>
+				<Container>
+					{this.props.city.nodes.map((node, index)=>{
+							return(
+								<Sprite 
+									anchor={0.5}
+									key={index} 
+									image={Persik}
+									width={this.props.cityParameters.tile_width}
+									height={this.props.cityParameters.tile_height}
+									x={(index % this.props.city.M) * this.props.cityParameters.tile_width}
+									y={(index % this.props.city.N) * this.props.cityParameters.tile_height}
+								/>
+							);
+						})
+					}
+				</Container>
 			</Stage>
 			</div>
 		);
