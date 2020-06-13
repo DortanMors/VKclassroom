@@ -6,6 +6,10 @@ const initialState = {
     tile_width: 25,
     tile_height: 25,
     //...
+  },
+  containerPos: {
+    x:0,
+    y:0
   }
 }
   
@@ -20,6 +24,11 @@ export default function gameState(state = initialState, action) {
       return {
         ...state,
         city: action.payload
+      }
+    case 'SET_CONTAINER_POS':
+      return {
+        ...state,
+        containerPos: action.payload
       }
     default:
       return state;
@@ -40,4 +49,8 @@ export function getCity(state){
 
 export function getCityParameters(state){
   return state.gameState.cityParameters;
+}
+
+export function getContainerPos(state){
+  return state.gameState.containerPos;
 }

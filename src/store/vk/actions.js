@@ -125,8 +125,11 @@ export function setRotation(angle){
     }
 }
 
-export function setCity(city){
+export function setContainerPos(pos){
     return (dispatch) => {
-        
+        dispatch({
+            type: 'SET_CONTAINER_POS',
+            payload: pos
+        })
     }
 }
