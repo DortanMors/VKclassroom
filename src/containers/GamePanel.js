@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Stage, Sprite, Container } from '@inlet/react-pixi';
-import Persik from '../img/persik.png'
+import { Stage, Sprite, Container, TilingSprite } from '@inlet/react-pixi';
+import Persik from '../img/persik.png';
 
 class GamePanel extends Component {
 
@@ -13,25 +13,23 @@ class GamePanel extends Component {
 				justifyContent: 'center'
 			}} >
 			<Stage 
-				width={this.props.city.N * this.props.cityParameters.tile_width}
-				height={this.props.city.M * this.props.cityParameters.tile_height}
-				options={{ backgroundColor: 0xffffffff }}
+				width={630}
+				height={500}
+				options={{ backgroundColor: 0xff1dd300 }}
 			>
-				<Container>
-					{this.props.city.nodes.map((node, index)=>{
-							return(
-								<Sprite 
-									anchor={0.5}
-									key={index} 
-									image={Persik}
-									width={this.props.cityParameters.tile_width}
-									height={this.props.cityParameters.tile_height}
-									x={(index % this.props.city.M) * this.props.cityParameters.tile_width}
-									y={(index % this.props.city.N) * this.props.cityParameters.tile_height}
-								/>
-							);
-						})
-					}
+				<Container 
+					width={this.props.city.N * this.props.cityParameters.tile_width}
+					height={this.props.city.M * this.props.cityParameters.tile_height}
+				>
+					<TilingSprite
+						image={Persik}
+						width={this.props.city.N * this.props.cityParameters.tile_width}
+						height={this.props.city.M * this.props.cityParameters.tile_height}
+						tilePosition={{ x: 25, y: 25 }}
+						tileScale={{ x: this.props.cityParameters.tile_width/512, 
+									 y: this.props.cityParameters.tile_height/512 }}
+  					/>
+					
 				</Container>
 			</Stage>
 			</div>

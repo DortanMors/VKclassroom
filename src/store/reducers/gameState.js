@@ -3,8 +3,8 @@ const initialState = {
   city: null,
   rotation: 0,
   cityParameters: {
-    tile_width: 10,
-    tile_height: 10,
+    tile_width: 25,
+    tile_height: 25,
     //...
   }
 }
