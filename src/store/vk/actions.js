@@ -63,17 +63,30 @@ export function fetchData(STORAGE_KEYS, create_city){
             type: "SET_POPOUT",
             payload: null
         })
-        const city = create_city(user.city.id,0.2,20,30);
+
+
+
+        const city = create_city(user.city.id,0.15,20,30);
         dispatch({
             type: 'SET_CITY',
             payload: city
         })
         let roads = [];
-        /*
-        * road = {
-        *    
-        * }
-        */
+        for(let i = 0; i < city.M-1; ++i){
+            for(let j = 0; j < city.N-1; ++j){
+                if(city.nodes[i*city.N+j].road_node && city.nodes[i*city.N+j+1].road_node){
+                    roads.push({isVertical: false, n: j, m: i})
+                }
+                if(city.nodes[i*city.N+j].road_node && city.nodes[(i+1)*city.N+j].road_node){
+                    roads.push({isVertical: true, n: j, m: i})
+                }
+                //TODO нижние дороги тоже
+            }
+        }
+        dispatch({
+            type: 'SET_ROADS',
+            payload: roads
+        })
     }
 }
 

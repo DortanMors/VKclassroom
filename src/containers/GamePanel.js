@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Stage, Container, TilingSprite } from '@inlet/react-pixi';
-import Persik from '../img/persik.png';
+import { Stage, Container, TilingSprite, Sprite } from '@inlet/react-pixi';
 import { Touch, PanelHeader, Panel } from '@vkontakte/vkui';
 import { setContainerPos, setPrevContainerPos } from '../store/vk/actions';
+import Grass from '../img/grass.png';
+import Road from '../img/road.png'
 
 class GamePanel extends Component {
 
@@ -40,22 +41,22 @@ class GamePanel extends Component {
 							height={this.props.city.M * this.props.cityParameters.tile_height}
 						>
 							<TilingSprite
-								image={Persik}
+								image={Grass}
 								width={this.props.city.N * this.props.cityParameters.tile_width}
 								height={this.props.city.M * this.props.cityParameters.tile_height}
 								tilePosition={{ x: 25, y: 25 }}
 								tileScale={{ x: this.props.cityParameters.tile_width/512, 
 											 y: this.props.cityParameters.tile_height/512}}
 							/>
-							{this.props.city.nodes.filter((node, index)=>{
+							{this.props.roads.map((road, index)=>{
 								return(
 									<Sprite
 										key={index}
-										image={Persik}
-										width={1? 1 : this.props.cityParameters.tile_width}
-										height={1? 1 : this.props.cityParameters.tile_height}
-										x={(index - index % this.props.city.N)/this.props.city.N * this.props.cityParameters.tile_width/512 + this.props.cityParameters.tile_width/1024}
-										y={index % this.props.city.N * this.props.cityParameters.tile_height/512 + this.props.cityParameters.tile_height/1024}
+										image={Road}
+										width={road.isVertical? this.props.cityParameters.tile_width/5 : this.props.cityParameters.tile_width}
+										height={road.isVertical? this.props.cityParameters.tile_height : this.props.cityParameters.tile_height/5}
+										x={road.n * this.props.cityParameters.tile_width + this.props.cityParameters.tile_width/2}
+										y={road.m * this.props.cityParameters.tile_height + this.props.cityParameters.tile_height/2}
 									/>
 								);
 							})}
