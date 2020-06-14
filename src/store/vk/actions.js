@@ -68,6 +68,12 @@ export function fetchData(STORAGE_KEYS, create_city){
             type: 'SET_CITY',
             payload: city
         })
+        let roads = [];
+        /*
+        * road = {
+        *    
+        * }
+        */
     }
 }
 

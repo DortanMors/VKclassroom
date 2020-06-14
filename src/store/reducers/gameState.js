@@ -14,7 +14,8 @@ const initialState = {
   prevContainerPos: {
     x:0,
     y:0
-  }
+  },
+  roads: []
 }
   
 export default function gameState(state = initialState, action) {
@@ -38,6 +39,11 @@ export default function gameState(state = initialState, action) {
       return {
         ...state,
         prevContainerPos: action.payload
+      }
+    case 'SET_ROADS':
+      return {
+        ...state,
+        roads: action.payload
       }
     default:
       return state;
@@ -66,4 +72,8 @@ export function getContainerPos(state){
 
 export function getPrevContainerPos(state){
   return state.gameState.prevContainerPos;
+}
+
+export function getRoads(state){
+  return state.gameState.roads;
 }

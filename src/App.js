@@ -64,6 +64,7 @@ class App extends Component{
                             cityParameters={this.props.cityParameters}
                             containerPos={this.props.containerPos}
                             prevContainerPos={this.props.prevContainerPos}
+                            roads={this.props.roads}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -105,7 +106,8 @@ function mapStateToProps(state) {
         city:     gameSelectors.getCity(state),
         cityParameters: gameSelectors.getCityParameters(state),
         containerPos: gameSelectors.getContainerPos(state),
-        prevContainerPos: gameSelectors.getPrevContainerPos(state)
+        prevContainerPos: gameSelectors.getPrevContainerPos(state),
+        roads: gameSelectors.getRoads(state)
     };
 }
 
