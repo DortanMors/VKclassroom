@@ -133,3 +133,12 @@ export function setContainerPos(pos){
         })
     }
 }
+
+export function setPrevContainerPos(prevPos){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_PREV_CONTAINER_POS',
+            payload: prevPos
+        })
+    }
+}

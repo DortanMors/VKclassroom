@@ -10,6 +10,10 @@ const initialState = {
   containerPos: {
     x:0,
     y:0
+  },
+  prevContainerPos: {
+    x:0,
+    y:0
   }
 }
   
@@ -29,6 +33,11 @@ export default function gameState(state = initialState, action) {
       return {
         ...state,
         containerPos: action.payload
+      }
+    case 'SET_PREV_CONTAINER_POS':
+      return {
+        ...state,
+        prevContainerPos: action.payload
       }
     default:
       return state;
@@ -53,4 +62,8 @@ export function getCityParameters(state){
 
 export function getContainerPos(state){
   return state.gameState.containerPos;
+}
+
+export function getPrevContainerPos(state){
+  return state.gameState.prevContainerPos;
 }
