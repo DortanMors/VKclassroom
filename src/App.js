@@ -65,6 +65,10 @@ class App extends Component{
                             containerPos={this.props.containerPos}
                             prevContainerPos={this.props.prevContainerPos}
                             roads={this.props.roads}
+                            dudeCurDir={this.props.dudeCurDir}
+                            dudeNewDir={this.props.dudeNewDir}
+                            dudePos={this.props.dudePos}
+                            dudePath={this.props.dudePath}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -102,12 +106,16 @@ function mapStateToProps(state) {
         storageKeys:  selectors.getStorageKeys(state),
         snackbar:     selectors.getSnackbar(state),
 
-        rotation: gameSelectors.getRotation(state),
-        city:     gameSelectors.getCity(state),
-        cityParameters: gameSelectors.getCityParameters(state),
-        containerPos: gameSelectors.getContainerPos(state),
+        rotation:         gameSelectors.getRotation(state),
+        city:             gameSelectors.getCity(state),
+        cityParameters:   gameSelectors.getCityParameters(state),
+        containerPos:     gameSelectors.getContainerPos(state),
         prevContainerPos: gameSelectors.getPrevContainerPos(state),
-        roads: gameSelectors.getRoads(state)
+        roads:            gameSelectors.getRoads(state),
+        dudeCurDir:       gameSelectors.getDudeCurDir(state),
+        dudeNewDir:       gameSelectors.getDudeNewDir(state),
+        dudePos:          gameSelectors.getDudePos(state),
+        dudePath:         gameSelectors.getDudePath(state)
     };
 }
 

@@ -15,7 +15,17 @@ const initialState = {
     x:0,
     y:0
   },
-  roads: []
+  roads: [],
+  dudeCurDir: 'stop',
+  dudeNewDir: 'stop',
+  dudePos: {
+    x: 0,
+    y: 0
+  },
+  dudePath: {
+    x:0,
+    y:0
+  }
 }
   
 export default function gameState(state = initialState, action) {
@@ -44,6 +54,26 @@ export default function gameState(state = initialState, action) {
       return {
         ...state,
         roads: action.payload
+      }
+    case 'SET_CUR_DIR':
+      return {
+        ...state,
+        dudeCurDir: action.payload
+      }
+    case 'SET_NEW_CUR_DIR':
+      return {
+        ...state,
+        dudeNewDir: action.payload
+      }
+    case 'SET_DUDE_POS':
+      return {
+        ...state,
+        dudePos: action.payload
+      }
+    case 'SET_DUDE_PATH':
+      return {
+        ...state,
+        dudePath: action.payload
       }
     default:
       return state;
@@ -76,4 +106,20 @@ export function getPrevContainerPos(state){
 
 export function getRoads(state){
   return state.gameState.roads;
+}
+
+export function getDudePos(state){
+  return state.gameState.dudePos;
+}
+
+export function getDudeCurDir(state){
+  return state.gameState.dudeCurDir;
+}
+
+export function getDudeNewDir(state){
+  return state.gameState.dudeNewDir;
+}
+
+export function getDudePath(state){
+  return state.gameState.dudePath;
 }

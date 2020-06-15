@@ -80,7 +80,11 @@ export function fetchData(STORAGE_KEYS, create_city){
                 if(city.nodes[i*city.N+j].road_node && city.nodes[(i+1)*city.N+j].road_node){
                     roads.push({isVertical: true, n: j, m: i})
                 }
-                //TODO нижние дороги тоже
+            }
+            for(let i = 0; i < city.N-1; ++i){
+                if(city.nodes[(city.M-1)*city.N+i].road_node && city.nodes[(city.M-1)*city.N+i+1].road_node){
+                    roads.push({isVertical: false, n: i, m: city.M-1})
+                }
             }
         }
         dispatch({
@@ -159,5 +163,116 @@ export function setPrevContainerPos(prevPos){
             type: 'SET_PREV_CONTAINER_POS',
             payload: prevPos
         })
+    }
+}
+
+export function setDirByMove(e){
+    return (dispatch) => {
+        let newDir;
+        if(e.isX){
+            newDir = e.shiftX > 0? 'right' : 'left';
+        } else if(e.isY){
+            newDir = e.shiftY > 0? 'down' : 'up';
+        } else {
+            newDir = 'stop';
+        }
+        dispatch({
+            type: 'SET_NEW_CUR_DIR',
+            payload: newDir
+        });
+    };
+}
+
+export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
+    return async(dispatch) => {
+        const speed = 0.1; // TODO: сделать поправку на время, чтобы перемещение было равномерно
+        let isDirChange = true;
+        let isPosChange = true;
+        if(dudeCurDir=='stop'){
+            switch(dudeNewDir){
+                case 'up':
+                    dudeCurDir = dudePos.y>0 && city.nodes[(dudePos.y-1)*city.N+dudePos.x].road_node? 'up' : 'stop';
+                    break;
+                case 'right':
+                    dudeCurDir = dudePos.x<city.N-1 && city.nodes[dudePos.y*city.N+dudePos.x+1].road_node? 'right' : 'stop';
+                    break;
+                case 'down':
+                    dudeCurDir = dudePos.y<city.M-1 && city.nodes[(dudePos.y+1)*city.N+dudePos.x].road_node? 'down' : 'stop';
+                    break;
+                case 'left':
+                    dudeCurDir = dudePos.x>0 && city.nodes[dudePos.y*city.N+dudePos.x-1].road_node? 'left' : 'stop';       
+                    break;         
+                default:
+                    isDirChange = false;
+            }
+        }
+        if(dudePath.y+speed>=1 || dudePath.x+speed>=1 || dudePath.y-speed<=-1 || dudePath.x-speed<=-1){
+            dudePath = { x:0, y:0 };
+            switch(dudeCurDir){
+                case 'up':
+                    dudePos = {
+                        ...dudePos,
+                        y:dudePos.y-1
+                    }
+                    break;
+                case 'right':
+                    dudePos = {
+                        ...dudePos,
+                        x:dudePos.x+1
+                    }
+                    break;
+                case 'down':
+                    dudePos = {
+                        ...dudePos,
+                        y:dudePos.y+1
+                    }
+                    break;
+                case 'left':
+                    dudePos = {
+                        ...dudePos,
+                        x:dudePos.x-1
+                    }
+                    break;
+                default:
+                    isPosChange = false;
+            }
+            dudeCurDir='stop';
+        }else{
+            isPosChange = false;
+            switch(dudeCurDir){
+                case 'up':
+                    dudePath={x:0, y:dudePath.y- speed * 1} // TODO: *1 заменить на единицу времени
+                    break;
+                case 'right':
+                    dudePath={x:dudePath.x+ speed * 1, y:0} // TODO: *1 заменить на единицу времени
+                    break;
+                case 'down':
+                    dudePath={x:0, y:dudePath.y+ speed * 1} // TODO: *1 заменить на единицу времени
+                    break;
+                case 'left':
+                    dudePath={x:dudePath.x- speed * 1, y:0} // TODO: *1 заменить на единицу времени
+                    break;
+                default:
+                    //nothing
+            }
+        }
+        setTimeout(()=>{
+            dispatch({
+                type: 'SET_DUDE_PATH',
+                payload: dudePath
+            });
+            if(isPosChange){
+                dispatch({
+                    type: 'SET_DUDE_POS',
+                    payload: dudePos
+                });
+            }
+            if(isDirChange){
+                dispatch({
+                    type: 'SET_CUR_DIR',
+                    payload: dudeCurDir
+                });
+            }
+        }, 1000);
     }
 }
