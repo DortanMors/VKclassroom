@@ -185,22 +185,23 @@ export function setDirByMove(e){
 
 export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
     return async(dispatch) => {
-        const speed = 0.1; // TODO: сделать поправку на время, чтобы перемещение было равномерно
+        const speed = 0.05; // TODO: сделать поправку на время, чтобы перемещение было равномерно
         let isDirChange = true;
         let isPosChange = true;
-        if(dudeCurDir=='stop'){
+        let dudeNewCurDir = dudeCurDir;
+        if(dudeCurDir==='stop'){
             switch(dudeNewDir){
                 case 'up':
-                    dudeCurDir = dudePos.y>0 && city.nodes[(dudePos.y-1)*city.N+dudePos.x].road_node? 'up' : 'stop';
+                    dudeNewCurDir = dudePos.y>0 && city.nodes[(dudePos.y-1)*city.N+dudePos.x].road_node? 'up' : 'stop';
                     break;
                 case 'right':
-                    dudeCurDir = dudePos.x<city.N-1 && city.nodes[dudePos.y*city.N+dudePos.x+1].road_node? 'right' : 'stop';
+                    dudeNewCurDir = dudePos.x<city.N-1 && city.nodes[dudePos.y*city.N+dudePos.x+1].road_node? 'right' : 'stop';
                     break;
                 case 'down':
-                    dudeCurDir = dudePos.y<city.M-1 && city.nodes[(dudePos.y+1)*city.N+dudePos.x].road_node? 'down' : 'stop';
+                    dudeNewCurDir = dudePos.y<city.M-1 && city.nodes[(dudePos.y+1)*city.N+dudePos.x].road_node? 'down' : 'stop';
                     break;
                 case 'left':
-                    dudeCurDir = dudePos.x>0 && city.nodes[dudePos.y*city.N+dudePos.x-1].road_node? 'left' : 'stop';       
+                    dudeNewCurDir = dudePos.x>0 && city.nodes[dudePos.y*city.N+dudePos.x-1].road_node? 'left' : 'stop';       
                     break;         
                 default:
                     isDirChange = false;
@@ -236,7 +237,7 @@ export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
                 default:
                     isPosChange = false;
             }
-            dudeCurDir='stop';
+            dudeNewCurDir='stop';
         }else{
             isPosChange = false;
             switch(dudeCurDir){
@@ -267,12 +268,12 @@ export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
                     payload: dudePos
                 });
             }
-            if(isDirChange){
+            if(dudeNewCurDir!==dudeCurDir){
                 dispatch({
                     type: 'SET_CUR_DIR',
-                    payload: dudeCurDir
+                    payload: dudeNewCurDir
                 });
             }
-        }, 1000);
+        }, 100);
     }
 }
