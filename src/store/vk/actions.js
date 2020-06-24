@@ -186,9 +186,8 @@ export function setDirByMove(e){
 export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
     return async(dispatch) => {
         const speed = 0.05; // TODO: сделать поправку на время, чтобы перемещение было равномерно
-        let isDirChange = true;
-        let isPosChange = true;
         let dudeNewCurDir = dudeCurDir;
+        let dudeNewPos = dudePos;
         if(dudeCurDir==='stop'){
             switch(dudeNewDir){
                 case 'up':
@@ -204,42 +203,39 @@ export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
                     dudeNewCurDir = dudePos.x>0 && city.nodes[dudePos.y*city.N+dudePos.x-1].road_node? 'left' : 'stop';       
                     break;         
                 default:
-                    isDirChange = false;
             }
         }
-        if(dudePath.y+speed>=1 || dudePath.x+speed>=1 || dudePath.y-speed<=-1 || dudePath.x-speed<=-1){
+        if(dudePath.y>=1 || dudePath.x>=1 || dudePath.y<=-1 || dudePath.x<=-1){
             dudePath = { x:0, y:0 };
+            dudeNewCurDir='stop';
             switch(dudeCurDir){
                 case 'up':
-                    dudePos = {
+                    dudeNewPos = {
                         ...dudePos,
                         y:dudePos.y-1
                     }
                     break;
                 case 'right':
-                    dudePos = {
+                    dudeNewPos = {
                         ...dudePos,
                         x:dudePos.x+1
                     }
                     break;
                 case 'down':
-                    dudePos = {
+                    dudeNewPos = {
                         ...dudePos,
                         y:dudePos.y+1
                     }
                     break;
                 case 'left':
-                    dudePos = {
+                    dudeNewPos = {
                         ...dudePos,
                         x:dudePos.x-1
                     }
                     break;
                 default:
-                    isPosChange = false;
             }
-            dudeNewCurDir='stop';
         }else{
-            isPosChange = false;
             switch(dudeCurDir){
                 case 'up':
                     dudePath={x:0, y:dudePath.y- speed * 1} // TODO: *1 заменить на единицу времени
@@ -258,14 +254,16 @@ export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
             }
         }
         setTimeout(()=>{
-            dispatch({
-                type: 'SET_DUDE_PATH',
-                payload: dudePath
-            });
-            if(isPosChange){
+            if(dudeNewCurDir!=='stop'){
+                dispatch({
+                    type: 'SET_DUDE_PATH',
+                    payload: dudePath
+                });
+            }
+            if(dudePos.x!==dudeNewPos.x || dudePos.y!==dudeNewPos.y){
                 dispatch({
                     type: 'SET_DUDE_POS',
-                    payload: dudePos
+                    payload: dudeNewPos
                 });
             }
             if(dudeNewCurDir!==dudeCurDir){
