@@ -4,18 +4,16 @@ import { View, Epic, ConfigProvider } from '@vkontakte/vkui';
 import { RouteNode } from 'react-router5'
 import * as vkActions from './store/vk/actions';
 import * as selectors from './store/reducers/appState';
-import * as gameSelectors from './store/reducers/gameState';
 import Home from './containers/Home';
 import GamePanel from './containers/GamePanel';
 import Intro from './containers/Intro';
 import Footer from './containers/Footer';
-import create_city from './City/create-city';
 
 import '@vkontakte/vkui/dist/vkui.css';
 class App extends Component{
 	componentDidMount() {
         this.props.dispatch(vkActions.initApp());
-        this.props.dispatch(vkActions.fetchData(this.props.storageKeys, create_city));
+        this.props.dispatch(vkActions.fetchData(this.props.storageKeys));
 	}
 	
 	render(){
@@ -105,17 +103,6 @@ function mapStateToProps(state) {
         userSawIntro: selectors.getUserSawIntro(state),
         storageKeys:  selectors.getStorageKeys(state),
         snackbar:     selectors.getSnackbar(state),
-
-        rotation:         gameSelectors.getRotation(state),
-        city:             gameSelectors.getCity(state),
-        cityParameters:   gameSelectors.getCityParameters(state),
-        containerPos:     gameSelectors.getContainerPos(state),
-        prevContainerPos: gameSelectors.getPrevContainerPos(state),
-        roads:            gameSelectors.getRoads(state),
-        dudeCurDir:       gameSelectors.getDudeCurDir(state),
-        dudeNewDir:       gameSelectors.getDudeNewDir(state),
-        dudePos:          gameSelectors.getDudePos(state),
-        dudePath:         gameSelectors.getDudePath(state)
     };
 }
 

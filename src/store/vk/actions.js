@@ -27,7 +27,7 @@ export function initApp(){
     }
 }
 
-export function fetchData(STORAGE_KEYS, create_city){
+export function fetchData(STORAGE_KEYS){
     return async (dispatch) => {
         const user = await bridge.send('VKWebAppGetUserInfo');
         const storageData = await bridge.send('VKWebAppStorageGet', {
@@ -62,34 +62,6 @@ export function fetchData(STORAGE_KEYS, create_city){
         dispatch({
             type: "SET_POPOUT",
             payload: null
-        })
-
-
-
-        const city = create_city(user.city.id,0.15,20,30);
-        dispatch({
-            type: 'SET_CITY',
-            payload: city
-        })
-        let roads = [];
-        for(let i = 0; i < city.M-1; ++i){
-            for(let j = 0; j < city.N-1; ++j){
-                if(city.nodes[i*city.N+j].road_node && city.nodes[i*city.N+j+1].road_node){
-                    roads.push({isVertical: false, n: j, m: i})
-                }
-                if(city.nodes[i*city.N+j].road_node && city.nodes[(i+1)*city.N+j].road_node){
-                    roads.push({isVertical: true, n: j, m: i})
-                }
-            }
-            for(let i = 0; i < city.N-1; ++i){
-                if(city.nodes[(city.M-1)*city.N+i].road_node && city.nodes[(city.M-1)*city.N+i+1].road_node){
-                    roads.push({isVertical: false, n: i, m: city.M-1})
-                }
-            }
-        }
-        dispatch({
-            type: 'SET_ROADS',
-            payload: roads
         })
     }
 }
@@ -130,148 +102,5 @@ export function setStorageSawIntro(STORAGE_KEYS){
                 sawIntro: true
             })
         });
-    }
-}
-
-
-
-
-// экшены для игры
-export function setRotation(angle){
-    return async (dispatch) => {
-        setTimeout(() => {
-            dispatch({
-                type: 'SET_ROTATION',
-                payload: angle
-            })
-        }, 50);
-    }
-}
-
-export function setContainerPos(pos){
-    return (dispatch) => {
-        dispatch({
-            type: 'SET_CONTAINER_POS',
-            payload: pos
-        })
-    }
-}
-
-export function setPrevContainerPos(prevPos){
-    return (dispatch) => {
-        dispatch({
-            type: 'SET_PREV_CONTAINER_POS',
-            payload: prevPos
-        })
-    }
-}
-
-export function setDirByMove(e){
-    return (dispatch) => {
-        let newDir;
-        if(e.isX){
-            newDir = e.shiftX > 0? 'right' : 'left';
-        } else if(e.isY){
-            newDir = e.shiftY > 0? 'down' : 'up';
-        } else {
-            newDir = 'stop';
-        }
-        dispatch({
-            type: 'SET_NEW_CUR_DIR',
-            payload: newDir
-        });
-    };
-}
-
-export function updateTick(city,dudePos,dudePath,dudeCurDir,dudeNewDir){
-    return async(dispatch) => {
-        const speed = 0.05; // TODO: сделать поправку на время, чтобы перемещение было равномерно
-        let dudeNewCurDir = dudeCurDir;
-        let dudeNewPos = dudePos;
-        if(dudeCurDir==='stop'){
-            switch(dudeNewDir){
-                case 'up':
-                    dudeNewCurDir = dudePos.y>0 && city.nodes[(dudePos.y-1)*city.N+dudePos.x].road_node? 'up' : 'stop';
-                    break;
-                case 'right':
-                    dudeNewCurDir = dudePos.x<city.N-1 && city.nodes[dudePos.y*city.N+dudePos.x+1].road_node? 'right' : 'stop';
-                    break;
-                case 'down':
-                    dudeNewCurDir = dudePos.y<city.M-1 && city.nodes[(dudePos.y+1)*city.N+dudePos.x].road_node? 'down' : 'stop';
-                    break;
-                case 'left':
-                    dudeNewCurDir = dudePos.x>0 && city.nodes[dudePos.y*city.N+dudePos.x-1].road_node? 'left' : 'stop';       
-                    break;         
-                default:
-            }
-        }
-        if(dudePath.y>=1 || dudePath.x>=1 || dudePath.y<=-1 || dudePath.x<=-1){
-            dudePath = { x:0, y:0 };
-            dudeNewCurDir='stop';
-            switch(dudeCurDir){
-                case 'up':
-                    dudeNewPos = {
-                        ...dudePos,
-                        y:dudePos.y-1
-                    }
-                    break;
-                case 'right':
-                    dudeNewPos = {
-                        ...dudePos,
-                        x:dudePos.x+1
-                    }
-                    break;
-                case 'down':
-                    dudeNewPos = {
-                        ...dudePos,
-                        y:dudePos.y+1
-                    }
-                    break;
-                case 'left':
-                    dudeNewPos = {
-                        ...dudePos,
-                        x:dudePos.x-1
-                    }
-                    break;
-                default:
-            }
-        }else{
-            switch(dudeCurDir){
-                case 'up':
-                    dudePath={x:0, y:dudePath.y- speed * 1} // TODO: *1 заменить на единицу времени
-                    break;
-                case 'right':
-                    dudePath={x:dudePath.x+ speed * 1, y:0} // TODO: *1 заменить на единицу времени
-                    break;
-                case 'down':
-                    dudePath={x:0, y:dudePath.y+ speed * 1} // TODO: *1 заменить на единицу времени
-                    break;
-                case 'left':
-                    dudePath={x:dudePath.x- speed * 1, y:0} // TODO: *1 заменить на единицу времени
-                    break;
-                default:
-                    //nothing
-            }
-        }
-        setTimeout(()=>{
-            if(dudeNewCurDir!=='stop'){
-                dispatch({
-                    type: 'SET_DUDE_PATH',
-                    payload: dudePath
-                });
-            }
-            if(dudePos.x!==dudeNewPos.x || dudePos.y!==dudeNewPos.y){
-                dispatch({
-                    type: 'SET_DUDE_POS',
-                    payload: dudeNewPos
-                });
-            }
-            if(dudeNewCurDir!==dudeCurDir){
-                dispatch({
-                    type: 'SET_CUR_DIR',
-                    payload: dudeNewCurDir
-                });
-            }
-        }, 100);
     }
 }
