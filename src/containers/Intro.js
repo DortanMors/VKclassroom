@@ -4,7 +4,7 @@ import { Panel, PanelHeader, Avatar, Group, FixedLayout, Button, Div, Snackbar }
 import Icon24Error from '@vkontakte/icons/dist/24/error';
 import { setStorageSawIntro } from '../store/vk/actions'
 
-import './Intro.css';
+import '../styles/Intro.css';
 import '@vkontakte/vkui/dist/vkui.css';
 
 class Intro extends Component {

@@ -4,6 +4,7 @@ import { View, Epic, ConfigProvider } from '@vkontakte/vkui';
 import { RouteNode } from 'react-router5'
 import * as vkActions from './store/vk/actions';
 import * as selectors from './store/reducers/appState';
+import * as cardSelectors from './store/reducers/cardState'
 import Home from './containers/Home';
 import GamePanel from './containers/GamePanel';
 import Intro from './containers/Intro';
@@ -57,16 +58,8 @@ class App extends Component{
                         <GamePanel 
                             router={this.props.router}
                             id="gamePanel"
-                            rotation={this.props.rotation}
-                            city={this.props.city}
-                            cityParameters={this.props.cityParameters}
-                            containerPos={this.props.containerPos}
-                            prevContainerPos={this.props.prevContainerPos}
-                            roads={this.props.roads}
-                            dudeCurDir={this.props.dudeCurDir}
-                            dudeNewDir={this.props.dudeNewDir}
-                            dudePos={this.props.dudePos}
-                            dudePath={this.props.dudePath}
+                            cards={this.props.cards}
+                            gone={this.props.gone}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -103,6 +96,9 @@ function mapStateToProps(state) {
         userSawIntro: selectors.getUserSawIntro(state),
         storageKeys:  selectors.getStorageKeys(state),
         snackbar:     selectors.getSnackbar(state),
+
+        cards:        cardSelectors.getCards(state),
+        gone:         cardSelectors.getGone(state)
     };
 }
 
