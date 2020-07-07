@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
 import BusinessCardContainer from './BusinessCardContainer';
+import { setGone } from '../store/vk/actions';
 
 //import '../styles/GamePanel.css';
 import { Panel, PanelHeader } from '@vkontakte/vkui';
@@ -40,7 +41,11 @@ function GamePanel(props) {
 	
 		  const dir = xDir < 0 ? -1 : 1;
 	
-		  if (!down && trigger) props.gone.add(index);
+		  if (!down && trigger){
+			const new_gone = props.gone;
+			new_gone.add(index);
+			props.dispatch(setGone(new_gone));
+		  }
 	
 		  set(i => {
 			if (index !== i) return;

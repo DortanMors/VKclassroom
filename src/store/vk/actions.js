@@ -104,3 +104,12 @@ export function setStorageSawIntro(STORAGE_KEYS){
         });
     }
 }
+
+export function setGone(gone){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_GONE',
+            payload: gone
+        })
+    }
+}
