@@ -7,7 +7,15 @@ const initialState = {
         distance: 1,
         text: 'Chebureki'
       }
-    }
+    },
+    {
+      title: 'Mors Corp.',
+      pics: ['https://sun9-38.userapi.com/c206816/v206816747/155343/Jh6GEcRqGCk.jpg'],
+      info: {
+        distance: 1,
+        text: '))'
+      }
+    },
   ],
   gone: new Set()
 }

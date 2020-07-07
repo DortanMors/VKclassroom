@@ -9,7 +9,7 @@ class BusinessCardContainer extends Component {
 	render() {
 		return(
 			<animated.div
-				key={this.props.i}
+				key={this.props.key}
 				style={{
 					transform: interpolate([this.props.x, this.props.y], (x, y) => `translate3d(${x}px,${y}px,0)`)
 				}}
@@ -27,7 +27,7 @@ class BusinessCardContainer extends Component {
 						))}
 					</Carousel>
 					<h2>{this.props.data.title}</h2>
-					<h5>{this.props.data.info.distance}</h5>
+					<h5>{this.props.data.info.distance} км</h5>
 					<h5>{this.props.data.info.text}</h5>
 					</div>
 				</animated.div>
