@@ -1,7 +1,15 @@
 const initialState = {
   cards: [
     {
-      title: 'Mors Corp.',
+      title: '1) Mors Corp.',
+      pics: ['https://sun9-38.userapi.com/c206816/v206816747/155343/Jh6GEcRqGCk.jpg'],
+      info: {
+        distance: 1,
+        text: 'Chebureki'
+      }
+    },
+    {
+      title: '2) Mors Corp.',
       pics: ['https://sun9-38.userapi.com/c206816/v206816747/155343/Jh6GEcRqGCk.jpg'],
       info: {
         distance: 1,
