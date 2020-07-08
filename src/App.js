@@ -60,6 +60,7 @@ class App extends Component{
                             id="gamePanel"
                             cards={this.props.cards}
                             gone={this.props.gone}
+                            discarded={this.props.discarded}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -98,7 +99,8 @@ function mapStateToProps(state) {
         snackbar:     selectors.getSnackbar(state),
 
         cards:        cardSelectors.getCards(state),
-        gone:         cardSelectors.getGone(state)
+        gone:         cardSelectors.getGone(state),
+        discarded:    cardSelectors.getDiscarded(state)
     };
 }
 
