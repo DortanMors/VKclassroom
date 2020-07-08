@@ -17,7 +17,8 @@ const initialState = {
       }
     }
   ],
-  gone: new Set()
+  gone: new Set(),
+  discarded: new Set()
 }
   
 export default function cardState(state = initialState, action) {
@@ -32,6 +33,11 @@ export default function cardState(state = initialState, action) {
         ...state,
         gone: action.payload
       }
+    case 'SET_DISCARDED':
+      return {
+        ...state,
+        discarded: action.payload
+      }
     default:
       return state;
   }
@@ -43,4 +49,8 @@ export function getCards(state){
 
 export function getGone(state){
   return state.cardState.gone
+}
+
+export function getDiscarded(state){
+  return state.cardState.discarded
 }

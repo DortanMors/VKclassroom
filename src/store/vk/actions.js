@@ -113,3 +113,12 @@ export function setGone(gone){
         })
     }
 }
+
+export function setDiscarded(discarded){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_DISCARDED',
+            payload: discarded
+        })
+    }
+}
