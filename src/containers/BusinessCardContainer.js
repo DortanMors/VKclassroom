@@ -8,6 +8,7 @@ class BusinessCardContainer extends Component {
 
 	render() {
 		return(
+			<div>{!this.props.gone.has(this.props.i) &&
 			<animated.div
 				key={this.props.i}
 				style={{
@@ -32,6 +33,7 @@ class BusinessCardContainer extends Component {
 					</div>
 				</animated.div>
 			</animated.div>
+			}</div>
 		);
 	};
 };
