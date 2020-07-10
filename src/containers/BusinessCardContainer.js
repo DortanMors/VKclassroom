@@ -10,25 +10,27 @@ class BusinessCardContainer extends Component {
 		return(!this.props.discarded.has(this.props.i) &&
 			<animated.div
 				key={this.props.i}
+				className='firstanimateddiv'
 				style={{
 					transform: interpolate([this.props.x, this.props.y], (x, y) => `translate3d(${x}px,${y}px,0)`)
 				}}
 				>
 				<animated.div
 					{...this.props.bind(this.props.i)}
+					className='secondanimateddiv'
 					style={{
 					transform: interpolate([this.props.rot, this.props.scale], this.props.trans)
 					}}
 				>
 					<div className="card">
-					<Carousel>
-						{this.props.data.pics.map((pic, index) => (
-							<img src={pic} key={index} alt="businessPicture" />
-						))}
-					</Carousel>
-					<h2>{this.props.data.title}</h2>
-					<h5>{this.props.data.info.distance}</h5>
-					<h5>{this.props.data.info.text}</h5>
+						<Carousel>
+							{this.props.data.pics.map((pic, index) => (
+								<img src={pic} key={index} alt="businessPicture" />
+							))}
+						</Carousel>
+						<h2>{this.props.data.title}</h2>
+						<h5>{this.props.data.info.distance}</h5>
+						<h5>{this.props.data.info.text}</h5>
 					</div>
 				</animated.div>
 			</animated.div>
