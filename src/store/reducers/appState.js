@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
 
 const initialState = { 
