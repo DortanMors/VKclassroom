@@ -59,8 +59,6 @@ class App extends Component{
                             router={this.props.router}
                             id="gamePanel"
                             cards={this.props.cards}
-                            gone={this.props.gone}
-                            discarded={this.props.discarded}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -98,9 +96,7 @@ function mapStateToProps(state) {
         storageKeys:  selectors.getStorageKeys(state),
         snackbar:     selectors.getSnackbar(state),
 
-        cards:        cardSelectors.getCards(state),
-        gone:         cardSelectors.getGone(state),
-        discarded:    cardSelectors.getDiscarded(state)
+        cards:        cardSelectors.getCards(state)
     };
 }
 

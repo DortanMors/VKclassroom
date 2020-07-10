@@ -17,8 +17,7 @@ const initialState = {
       }
     }
   ],
-  gone: new Set(),
-  discarded: new Set()
+  selected: new Set()
 }
   
 export default function cardState(state = initialState, action) {
@@ -28,15 +27,10 @@ export default function cardState(state = initialState, action) {
         ...state,
         cards: action.payload
       }
-    case 'SET_GONE':
+    case 'SET_SELECTED':
       return {
         ...state,
-        gone: action.payload
-      }
-    case 'SET_DISCARDED':
-      return {
-        ...state,
-        discarded: action.payload
+        selected: action.payload
       }
     default:
       return state;
@@ -51,6 +45,6 @@ export function getGone(state){
   return state.cardState.gone
 }
 
-export function getDiscarded(state){
-  return state.cardState.discarded
+export function getSelected(state){
+  return state.cardState.selected
 }

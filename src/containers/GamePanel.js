@@ -5,7 +5,7 @@ import { RouteNode } from 'react-router5';
 import '../styles/GamePanel.css';
 import { Panel, PanelHeader} from '@vkontakte/vkui';
 
-import { getCards, getGone, getDiscarded } from '../store/reducers/cardState';
+import { getCards } from '../store/reducers/cardState';
 import Deck from './Deck';
 
 class GamePanel extends Component {
@@ -21,7 +21,6 @@ class GamePanel extends Component {
                     router={this.props.router}
 					gone={this.props.gone}
 					cards={this.props.cards}
-					discarded={this.props.discarded}
 				/>
 			</Panel>
 		);
@@ -31,9 +30,7 @@ class GamePanel extends Component {
 
 function mapStateToProps(state) {
     return {
-        gone:  getGone(state),
 		cards: getCards(state),
-		discarded: getDiscarded(state)
 	};
 }
 

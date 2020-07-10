@@ -7,7 +7,7 @@ import Carousel from "nuka-carousel";
 class BusinessCardContainer extends Component {
 
 	render() {
-		return(!this.props.discarded.has(this.props.i) &&
+		return(
 			<animated.div
 				key={this.props.i}
 				className='firstanimateddiv'

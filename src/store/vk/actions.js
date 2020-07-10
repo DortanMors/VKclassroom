@@ -105,20 +105,12 @@ export function setStorageSawIntro(STORAGE_KEYS){
     }
 }
 
-export function setGone(gone){
-    return (dispatch) => {
-        dispatch({
-            type: 'SET_GONE',
-            payload: gone
-        })
-    }
-}
 
-export function setDiscarded(discarded){
+export function setSelected(selected){
     return (dispatch) => {
         dispatch({
-            type: 'SET_DISCARDED',
-            payload: discarded
+            type: 'SET_SELECTED',
+            payload: selected
         })
     }
 }
