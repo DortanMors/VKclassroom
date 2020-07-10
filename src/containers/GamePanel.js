@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { RouteNode } from 'react-router5';
 
 import '../styles/GamePanel.css';
-import { Panel, PanelHeader, Button} from '@vkontakte/vkui';
+import { Panel, PanelHeader} from '@vkontakte/vkui';
 
-import { getCards, getIsCardsOver } from '../store/reducers/cardState';
+import { getCards } from '../store/reducers/cardState';
 import Deck from './Deck';
-import { setIsCardsOver } from '../store/vk/actions';
 
 class GamePanel extends Component {
 
@@ -19,13 +19,9 @@ class GamePanel extends Component {
 				<Deck
 					id={this.props.id}
                     router={this.props.router}
+					gone={this.props.gone}
 					cards={this.props.cards}
 				/>
-				{(console.log('RENDER!') || this.props.isCardsOver) && 
-				<Button
-					size="xl" level="2"
-					onClick={()=>this.props.dispatch(setIsCardsOver(false))}
-				>Получить ещё</Button>}
 			</Panel>
 		);
 	}
@@ -35,9 +31,14 @@ class GamePanel extends Component {
 function mapStateToProps(state) {
     return {
 		cards: getCards(state),
-		isCardsOver: getIsCardsOver(state)
 	};
 }
 
 
-export default connect(mapStateToProps)(GamePanel);
+export default connect(mapStateToProps)(
+    (props) => (
+        <RouteNode nodeName="game">
+            {({ route }) => <GamePanel route={route} {...props}/>}
+        </RouteNode>
+    )
+);
