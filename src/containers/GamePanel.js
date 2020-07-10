@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { RouteNode } from 'react-router5';
 
 import '../styles/GamePanel.css';
 import { Panel, PanelHeader} from '@vkontakte/vkui';
@@ -36,6 +35,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps)(
-    (props) => (GamePanel)
-);
+export default connect(mapStateToProps)(GamePanel);
