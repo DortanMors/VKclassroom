@@ -1,3 +1,5 @@
+import React from 'react';
+
 const initialState = {
   cards: [
     {
@@ -17,7 +19,8 @@ const initialState = {
       }
     }
   ],
-  selected: new Set()
+  selected: new Set(),
+  isCardsOver: false
 }
   
 export default function cardState(state = initialState, action) {
@@ -26,6 +29,11 @@ export default function cardState(state = initialState, action) {
       return {
         ...state,
         cards: action.payload
+      }
+    case 'SET_IS_CARDS_OVER':
+      return {
+        ...state,
+        isCardsOver: action.payload
       }
     case 'SET_SELECTED':
       return {
@@ -41,10 +49,10 @@ export function getCards(state){
   return state.cardState.cards
 }
 
-export function getGone(state){
-  return state.cardState.gone
-}
-
 export function getSelected(state){
   return state.cardState.selected
+}
+
+export function getIsCardsOver(state){
+  return state.cardState.isCardsOver
 }

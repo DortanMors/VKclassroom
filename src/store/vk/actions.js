@@ -114,3 +114,12 @@ export function setSelected(selected){
         })
     }
 }
+
+export function setIsCardsOver(bool){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_IS_CARDS_OVER',
+            payload: bool
+        })
+    }
+}

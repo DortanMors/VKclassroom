@@ -59,6 +59,7 @@ class App extends Component{
                             router={this.props.router}
                             id="gamePanel"
                             cards={this.props.cards}
+                            isCardsOver={this.props.isCardsOver}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -96,7 +97,8 @@ function mapStateToProps(state) {
         storageKeys:  selectors.getStorageKeys(state),
         snackbar:     selectors.getSnackbar(state),
 
-        cards:        cardSelectors.getCards(state)
+        cards:        cardSelectors.getCards(state),
+        isCardsOver:  cardSelectors.getIsCardsOver(state)
     };
 }
 

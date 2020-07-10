@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
+import { setIsCardsOver } from '../store/vk/actions'
 import BusinessCardContainer from './BusinessCardContainer';
+import { getCards, getIsCardsOver } from '../store/reducers/cardState';
 
 const to = i => ({
 	x: 0,
@@ -66,8 +68,13 @@ function Deck(props) {
         };
         });
 
-        if (!down && gone.size === props.cards.length)
-            setTimeout(() => setGone(new Set()) || set(i => from(i)), 600);
+        if (!down && gone.size === props.cards.length){
+            setTimeout(() => 
+                props.dispatch(setIsCardsOver(true)) ||
+                setGone(new Set()) || 
+                set(i => from(i))                
+            , 600);
+        }
     });
 
 	return (
@@ -92,7 +99,10 @@ function Deck(props) {
 }
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        cards: getCards(state),
+        isCardsOver: getIsCardsOver(state)
+    };
 }
 
 export default connect(mapStateToProps)(Deck);
