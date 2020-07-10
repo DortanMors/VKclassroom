@@ -69,8 +69,8 @@ function Deck(props) {
         });
 
         if (!down && gone.size === props.cards.length){
+            props.dispatch(setIsCardsOver(true));
             setTimeout(() => 
-                props.dispatch(setIsCardsOver(true)) ||
                 setGone(new Set()) || 
                 set(i => from(i))                
             , 600);
