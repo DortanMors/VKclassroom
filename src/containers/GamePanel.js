@@ -5,7 +5,7 @@ import { RouteNode } from 'react-router5';
 import '../styles/GamePanel.css';
 import { Panel, PanelHeader} from '@vkontakte/vkui';
 
-import { getCards } from '../store/reducers/cardState';
+import { getCards, getIsCardsOver } from '../store/reducers/cardState';
 import Deck from './Deck';
 
 class GamePanel extends Component {
@@ -31,6 +31,7 @@ class GamePanel extends Component {
 function mapStateToProps(state) {
     return {
 		cards: getCards(state),
+		isCardsOver: getIsCardsOver(state)
 	};
 }
 
