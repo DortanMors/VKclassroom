@@ -36,9 +36,5 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(
-    (props) => (
-        <RouteNode nodeName="game">
-            {({ route }) => <GamePanel route={route} {...props}/>}
-        </RouteNode>
-    )
+    (props) => (GamePanel)
 );
