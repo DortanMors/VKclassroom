@@ -49,9 +49,11 @@ class App extends Component{
                         <Home 
                             router={this.props.router}
                             id="homePanel"
+
                             accessToken={this.props.accessToken}
                             userDocs={this.props.userDocs}
                             userInfo={this.props.userInfo}
+                            selected={this.props.selected}
                         />
                     </View>
                     <View id="gameView" activePanel="gamePanel" popout={this.props.popout}>

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { Panel, PanelHeader, Button, Group, Cell, Avatar, List, Div } from '@vkontakte/vkui';
-import Icon24Document from '@vkontakte/icons/dist/24/document';
-import { fetchDocs } from '../store/vk/actions';
-import Srand from 'prng';
+import { Panel, PanelHeader, Group, Cell, Avatar, List, Div } from '@vkontakte/vkui';
 
 class Home extends Component {
 
@@ -22,28 +19,16 @@ class Home extends Component {
 					</Cell>
 				</Group>}
 				<Div>
-						<Button  size="xl" level="2" onClick={() =>{
-							let prng = new Srand(this.props.userInfo.city.id);
-							for(let i = 1; i<10; ++i){
-									console.log(prng.rand(-10,10));
-							}
-						}}> 
-							Рандомнуть
-						</Button>
+						<h1> 
+							Вам понравилось:
+						</h1>
 					</Div>
-				<Group title='Docs and sucks'>
-					<Div>
-						<Button  size="xl" level="2" onClick={() =>{
-							this.props.dispatch(fetchDocs());
-						}}> 
-							Чекнуть доки
-						</Button>
-					</Div>
+				<Group title='Selected cards'>
 					<List>
-						{ this.props.userDocs && this.props.userDocs.response.hasOwnProperty('items') && this.props.userDocs.response.items.map((doc, index)=>{
+						{ this.props.selected.size>0 && this.props.selected.map((card, index)=>{
 							return(
-								<Cell key={index} href={doc.url} before={<Avatar size={24}><Icon24Document width='14' height='14' /></Avatar>}>
-									{doc.title}
+								<Cell key={index} before={<Avatar size={24} src={card.pics[0]}/>}>
+									{card.title} {card.info.distance} {card.info.text}
 								</Cell>
 							)
 						})}
