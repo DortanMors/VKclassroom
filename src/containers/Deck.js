@@ -40,10 +40,6 @@ function Deck(props) {
 
         const dir = xDir < 0 ? -1 : 1;
 
-        //if(!down && props.gone.size === 0){
-        //    set(i => to(i));
-        //}
-
         if (!down && trigger){
             const new_gone = gone;
             new_gone.add(index);
