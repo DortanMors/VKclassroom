@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
-import { setIsCardsOver } from '../store/vk/actions'
+import { setIsCardsOver, setGone, setCards } from '../store/vk/actions'
 import BusinessCardContainer from './BusinessCardContainer';
-import { getCards, getIsCardsOver } from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getGone } from '../store/reducers/cardState';
 
 const to = i => ({
 	x: 0,
@@ -21,7 +21,6 @@ const to = i => ({
 
       
 function Deck(props) {
-    const [gone,setGone] = useState(new Set());
 
 	const [springs_props, set] = useSprings(props.cards.length, i => ({
 		...to(i),
@@ -41,18 +40,22 @@ function Deck(props) {
 
         const dir = xDir < 0 ? -1 : 1;
 
+        //if(!down && props.gone.size === 0){
+        //    set(i => to(i));
+        //}
+
         if (!down && trigger){
-            const new_gone = gone;
+            const new_gone = props.gone;
             new_gone.add(index);
             if (dir===1){
                 console.log('Another one to the right!'); // TODO сюда засунуть логику для SELECTED
             }
-            setGone(new_gone);
+            props.dispatch(setGone(new_gone));
         }
 
         set(i => {
         if (index !== i) return;
-        const isGone = gone.has(index);
+        const isGone = props.gone.has(index);
 
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0;
 
@@ -68,11 +71,11 @@ function Deck(props) {
         };
         });
 
-        if (!down && gone.size === props.cards.length){
-            props.dispatch(setIsCardsOver(true));
-            setTimeout(() => 
-                setGone(new Set()) || 
-                set(i => from(i))                
+        if (!down && (props.gone.size === props.cards.length) && (props.cards.length!==0) && (props.gone.size!==0)){
+            console.log(props.gone.size + ' = ' + props.cards.length)
+            setTimeout(() =>
+                props.dispatch(setCards([])) ||
+                props.dispatch(setIsCardsOver(true))
             , 600);
         }
     });
@@ -91,7 +94,6 @@ function Deck(props) {
 						data={props.cards[i]}
 						bind={bind}
 						key={i}
-                        gone={gone}
 					/>
 				);
                 })
@@ -100,8 +102,9 @@ function Deck(props) {
 
 function mapStateToProps(state) {
     return {
-        cards: getCards(state),
-        isCardsOver: getIsCardsOver(state)
+        cards:       getCards(state),
+        isCardsOver: getIsCardsOver(state),
+        gone:        getGone(state)
     };
 }
 

@@ -132,3 +132,21 @@ export function setCards(cards){
         })
     })
 }
+
+export function setGone(gone){
+    return (dispatch => {
+        dispatch({
+            type: 'SET_GONE',
+            payload: gone
+        })
+    })
+}
+
+export function setNumber(number){
+    return (dispatch => {
+        dispatch({
+            type: 'SET_NUMBER',
+            payload: number
+        })
+    })
+}

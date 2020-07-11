@@ -58,8 +58,11 @@ class App extends Component{
                         <GamePanel 
                             router={this.props.router}
                             id="gamePanel"
+
                             cards={this.props.cards}
                             isCardsOver={this.props.isCardsOver}
+                            gone={this.props.gone}
+                            number={this.props.number}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -98,7 +101,9 @@ function mapStateToProps(state) {
         snackbar:     selectors.getSnackbar(state),
 
         cards:        cardSelectors.getCards(state),
-        isCardsOver:  cardSelectors.getIsCardsOver(state)
+        isCardsOver:  cardSelectors.getIsCardsOver(state),
+        gone:         cardSelectors.getGone(state),
+        number:       cardSelectors.getNumber(state)
     };
 }
 
