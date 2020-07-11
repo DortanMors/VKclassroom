@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import '../styles/GamePanel.css';
 import { Panel, PanelHeader, Button} from '@vkontakte/vkui';
 
-import { getCards, getIsCardsOver, getGone, getNumber } from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getGone, getNumber, getSelected } from '../store/reducers/cardState';
 import { setIsCardsOver, setCards} from '../store/vk/actions';
 import Deck from './Deck';
 
@@ -18,9 +18,11 @@ class GamePanel extends Component {
 				</PanelHeader>
 				{(console.log('RENDER DECK AS A CHILD') || !this.props.isCardsOver) && <Deck
 					id={this.props.id}
-                    router={this.props.router}
+					router={this.props.router}
+					
 					gone={this.props.gone}
 					cards={this.props.cards}
+					selected={this.props.selected}
 				/>}
 				{(console.log('RENDER!') || this.props.isCardsOver) && 
 				<Button
@@ -43,7 +45,8 @@ function mapStateToProps(state) {
 		cards:		 getCards(state),
 		isCardsOver: getIsCardsOver(state),
 		gone: 		 getGone(state),
-		number:		 getNumber(state)
+		number:		 getNumber(state),
+		selected:    getSelected(state)
 	};
 }
 

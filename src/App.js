@@ -63,6 +63,7 @@ class App extends Component{
                             isCardsOver={this.props.isCardsOver}
                             gone={this.props.gone}
                             number={this.props.number}
+                            selected={this.props.selected}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -103,7 +104,8 @@ function mapStateToProps(state) {
         cards:        cardSelectors.getCards(state),
         isCardsOver:  cardSelectors.getIsCardsOver(state),
         gone:         cardSelectors.getGone(state),
-        number:       cardSelectors.getNumber(state)
+        number:       cardSelectors.getNumber(state),
+        selected:     cardSelectors.getSelected(state)
     };
 }
 

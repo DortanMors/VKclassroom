@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
-import { setIsCardsOver, setCards } from '../store/vk/actions'
+import { setIsCardsOver, setCards, setSelected } from '../store/vk/actions'
 import BusinessCardContainer from './BusinessCardContainer';
-import { getCards, getIsCardsOver, getGone} from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getGone, getSelected} from '../store/reducers/cardState';
 
 const to = i => ({
 	x: 0,
@@ -44,7 +44,10 @@ function Deck(props) {
             const new_gone = gone;
             new_gone.add(index);
             if (dir===1){
-                console.log('Another one to the right!'); // TODO сюда засунуть логику для SELECTED
+                console.log('Another one to the right!');
+                const new_selected = props.selected;
+                props.selected.add(props.cards[index]);
+                props.dispatch(setSelected(new_selected));
             }
             setGone(new_gone);
         }
@@ -103,7 +106,8 @@ function mapStateToProps(state) {
     return {
         cards:       getCards(state),
         isCardsOver: getIsCardsOver(state),
-        gone:        getGone(state)
+        gone:        getGone(state),
+        selected:    getSelected(state)
     };
 }
 
