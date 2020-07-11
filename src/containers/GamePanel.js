@@ -5,7 +5,7 @@ import '../styles/GamePanel.css';
 import { Panel, PanelHeader, Button} from '@vkontakte/vkui';
 
 import { getCards, getIsCardsOver, getGone, getNumber } from '../store/reducers/cardState';
-import { setIsCardsOver, setCards, setNumber } from '../store/vk/actions';
+import { setIsCardsOver, setCards} from '../store/vk/actions';
 import Deck from './Deck';
 
 class GamePanel extends Component {
@@ -26,35 +26,10 @@ class GamePanel extends Component {
 				<Button
 					size="xl" level="2"
 					onClick={()=> {
-						this.props.dispatch(setIsCardsOver(false));
-						const i = this.props.number+1       // TODO логика добавления новых карточек
-						this.props.dispatch(setCards([
-							{
-								title: 'Mors Corp.',
-								pics: ['https://sun9-38.userapi.com/c206816/v206816747/155343/Jh6GEcRqGCk.jpg'],
-								info: {
-								  distance: i+2,
-								  text: 'Chebureki'
-								}
-							  },
-							  {
-								title: 'Mors Corp.',
-								pics: ['https://sun9-53.userapi.com/c857236/v857236000/1d070e/xPL-a-ASPCM.jpg','https://sun9-12.userapi.com/c854416/v854416000/2444b2/AaecX1f257w.jpg'],
-								info: {
-								  distance: i+1,
-								  text: 'Chebureki'
-								}
-							  },
-							  {
-								title: 'Mors Corp.',
-								pics: ['https://sun9-53.userapi.com/c857236/v857236000/1d070e/xPL-a-ASPCM.jpg','https://sun9-12.userapi.com/c854416/v854416000/2444b2/AaecX1f257w.jpg'],
-								info: {
-								  distance: i,
-								  text: 'Chebureki'
-								}
-							  }
-						]));
-						this.props.dispatch(setNumber(i+2));
+						fetch('http://localhost:8080/classroom?getcards=5')
+							.then(response => response.json())
+							.then(json => this.props.dispatch(setCards(json)))
+							.then(() => this.props.dispatch(setIsCardsOver(false)));
 					}}
 				>Получить ещё</Button>}
 			</Panel>
