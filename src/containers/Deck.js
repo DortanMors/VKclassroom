@@ -76,12 +76,10 @@ function Deck(props) {
             console.log(gone.size + ' = ' + props.cards.length);
             console.log(gone);
             
-            props.dispatch(setCards([]));
-            props.dispatch(setIsCardsOver(true));
-//            setTimeout(() =>
-  //              props.dispatch(setCards([])) ||
-    //            props.dispatch(setIsCardsOver(true))
-      //      , 600);
+            setTimeout(() =>
+                props.dispatch(setCards([])) ||
+                props.dispatch(setIsCardsOver(true))
+            , 600);
         }
     });
 
