@@ -1,7 +1,7 @@
 const initialState = {
   cards: [
     {
-      title: '1) Mors Corp.',
+      title: 'Mors Corp.',
       pics: ['https://sun9-38.userapi.com/c206816/v206816747/155343/Jh6GEcRqGCk.jpg'],
       info: {
         distance: 1,
@@ -9,10 +9,10 @@ const initialState = {
       }
     },
     {
-      title: '2) Mors Corp.',
-      pics: ['https://sun9-38.userapi.com/c206816/v206816747/155343/Jh6GEcRqGCk.jpg'],
+      title: 'Mors Corp.',
+      pics: ['https://sun9-53.userapi.com/c857236/v857236000/1d070e/xPL-a-ASPCM.jpg','https://sun9-12.userapi.com/c854416/v854416000/2444b2/AaecX1f257w.jpg'],
       info: {
-        distance: 1,
+        distance: 2,
         text: 'Chebureki'
       }
     }
