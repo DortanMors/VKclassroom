@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
-import { setIsCardsOver, setGone, setCards } from '../store/vk/actions'
+import { setIsCardsOver, setCards } from '../store/vk/actions'
 import BusinessCardContainer from './BusinessCardContainer';
-import { getCards, getIsCardsOver, getGone } from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getGone} from '../store/reducers/cardState';
 
 const to = i => ({
 	x: 0,
@@ -21,7 +21,7 @@ const to = i => ({
 
       
 function Deck(props) {
-
+    const [gone, setGone] = useState(new Set());
 	const [springs_props, set] = useSprings(props.cards.length, i => ({
 		...to(i),
 		from: from(i)
@@ -45,17 +45,17 @@ function Deck(props) {
         //}
 
         if (!down && trigger){
-            const new_gone = props.gone;
+            const new_gone = gone;
             new_gone.add(index);
             if (dir===1){
                 console.log('Another one to the right!'); // TODO сюда засунуть логику для SELECTED
             }
-            props.dispatch(setGone(new_gone));
+            setGone(new_gone);
         }
 
         set(i => {
         if (index !== i) return;
-        const isGone = props.gone.has(index);
+        const isGone = gone.has(index);
 
         const x = isGone ? (200 + window.innerWidth) * dir : down ? xDelta : 0;
 
@@ -71,12 +71,17 @@ function Deck(props) {
         };
         });
 
-        if (!down && (props.gone.size === props.cards.length) && (props.cards.length!==0) && (props.gone.size!==0)){
-            console.log(props.gone.size + ' = ' + props.cards.length)
-            setTimeout(() =>
-                props.dispatch(setCards([])) ||
-                props.dispatch(setIsCardsOver(true))
-            , 600);
+        if (!down && !props.isCardsOver && (gone.size === props.cards.length) && (props.cards.length!==0) && (gone.size!==0)){
+            setGone(new Set());
+            console.log(gone.size + ' = ' + props.cards.length);
+            console.log(gone);
+            
+            props.dispatch(setCards([]));
+            props.dispatch(setIsCardsOver(true));
+//            setTimeout(() =>
+  //              props.dispatch(setCards([])) ||
+    //            props.dispatch(setIsCardsOver(true))
+      //      , 600);
         }
     });
 
