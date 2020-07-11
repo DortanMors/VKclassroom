@@ -123,3 +123,12 @@ export function setIsCardsOver(bool){
         })
     }
 }
+
+export function setCards(cards){
+    return (dispatch => {
+        dispatch({
+            type: 'SET_CARDS',
+            payload: cards
+        })
+    })
+}
