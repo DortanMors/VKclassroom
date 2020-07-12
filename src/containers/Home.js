@@ -25,6 +25,7 @@ class Home extends Component {
 					</Div>
 				<Group title='Selected cards'>
 					<List>
+						{ this.props.selected.size===0 && <h3>ничё вам ещё не понравилось</h3> }
 						{ this.props.selected.size>0 && this.props.selected.map((card, index)=>{
 							return(
 								<Cell key={index} before={<Avatar size={24} src={card.pics[0]}/>}>
