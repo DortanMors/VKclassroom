@@ -12,7 +12,7 @@ class GamePanel extends Component {
 
 	render(){
 		return (
-			<Panel id={this.props.id} centered={true} className='deckroot'>
+			<Panel id={this.props.id} centered={true} className='deckroot gamepanel'>
 				<PanelHeader>
 					VK classroom
 				</PanelHeader>
