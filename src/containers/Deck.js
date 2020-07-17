@@ -44,7 +44,6 @@ function Deck(props) {
             const new_gone = gone;
             new_gone.add(index);
             if (dir===1){
-                console.log('Another one to the right!');
                 const new_selected = props.selected;
                 props.selected.add(props.cards[index]);
                 props.dispatch(setSelected(new_selected));
@@ -72,8 +71,6 @@ function Deck(props) {
 
         if (!down && !props.isCardsOver && (gone.size === props.cards.length) && (props.cards.length!==0) && (gone.size!==0)){
             setGone(new Set());
-            console.log(gone.size + ' = ' + props.cards.length);
-            console.log(gone);
             
             setTimeout(() =>
                 props.dispatch(setCards([])) ||
@@ -83,8 +80,7 @@ function Deck(props) {
     });
 
 	return (
-			console.log('РЕНДЕР') || springs_props.map((springs_prop, i) => {
-				console.log(springs_prop)
+			springs_props.map((springs_prop, i) => {
 				return(
 					<BusinessCardContainer
 						i={i}

@@ -16,7 +16,7 @@ class GamePanel extends Component {
 				<PanelHeader>
 					VK classroom
 				</PanelHeader>
-				{(console.log('RENDER DECK AS A CHILD') || !this.props.isCardsOver) && <Deck
+				{(!this.props.isCardsOver) && <Deck
 					id={this.props.id}
 					router={this.props.router}
 					
@@ -24,12 +24,13 @@ class GamePanel extends Component {
 					cards={this.props.cards}
 					selected={this.props.selected}
 				/>}
-				{(console.log('RENDER!') || this.props.isCardsOver) && 
+				{this.props.isCardsOver && 
 				<Button
 					size="xl" level="2"
 					onClick={()=> {
-						fetch('http://localhost:8080/classroom?getcards=5')
-							.then(response => response.json())
+						fetch('http://188.227.86.52:1337/classroom?cards=5')
+							.then(response => {console.log(response);response.json()})
+							.then(json => {console.log(json); return json;})
 							.then(json => this.props.dispatch(setCards(json)))
 							.then(() => this.props.dispatch(setIsCardsOver(false)));
 					}}
