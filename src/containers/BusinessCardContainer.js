@@ -24,13 +24,14 @@ class BusinessCardContainer extends Component {
 				>
 					<div className="card">
 						<Carousel>
-							{this.props.data.pics.map((pic, index) => (
+							{this.props.data.pics && this.props.data.pics.map((pic, index) => (
 								<img src={pic} key={index} alt="businessPicture" />
 							))}
 						</Carousel>
-						<h2>{this.props.data.title}</h2>
-						<h5>{this.props.data.info.distance}</h5>
-						<h5>{this.props.data.info.text}</h5>
+						<h2>{this.props.data.name}</h2>
+						<h5>{this.props.data.rating}</h5>
+						<h5>{this.props.data.formatted_address}</h5>
+						<h5>{this.props.data.opening_hours.open_now?"Открыто":"Закрыто"}</h5>
 					</div>
 				</animated.div>
 			</animated.div>
