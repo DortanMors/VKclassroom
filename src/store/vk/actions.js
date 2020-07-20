@@ -33,7 +33,6 @@ export function fetchData(STORAGE_KEYS){
         const storageData = await bridge.send('VKWebAppStorageGet', {
             keys: Object.values(STORAGE_KEYS)
         });
-        console.log(storageData); // удалить
         const data = {};
         storageData.keys.forEach(({key,value}) => {
             try{
@@ -72,7 +71,6 @@ export function fetchDocs(){
         // TODO: получать app_id из конфига
         const token = await bridge.send('VKWebAppGetAuthToken', {
             app_id: 7472666, scope: 'friends,status,docs'});
-        console.log(token); // удалить
         dispatch({
             type: 'UPDATE_ACCESSTOKEN',
             payload: token
@@ -86,7 +84,6 @@ export function fetchDocs(){
                 access_token: token.access_token
             }
         });
-        console.log(docs); // удалить
         dispatch({
             type: 'UPDATE_USERDOCS',
             payload: docs
