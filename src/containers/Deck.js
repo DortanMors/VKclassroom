@@ -45,7 +45,7 @@ function Deck(props) {
             new_gone.add(index);
             if (dir===1){
                 const new_selected = props.selected;
-                props.selected.add(props.cards[index]);
+                new_selected.add(props.cards[index]);
                 props.dispatch(setSelected(new_selected));
             }
             setGone(new_gone);
