@@ -14,7 +14,7 @@ class GamePanel extends Component {
 		return (
 			<Panel id={this.props.id} centered={true} className='deckroot gamepanel'>
 				<PanelHeader>
-					VK classroom
+					Fun Finder
 				</PanelHeader>
 				{(!this.props.isCardsOver) && <Deck
 					id={this.props.id}
@@ -34,7 +34,7 @@ class GamePanel extends Component {
 							.then(json => this.props.dispatch(setCards(json.results)))
 							.then(() => this.props.dispatch(setIsCardsOver(false)));
 					}}
-				>Получить ещё</Button>}
+				>Получить карточки</Button>}
 			</Panel>
 		);
 	}

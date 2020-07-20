@@ -8,7 +8,7 @@ class Home extends Component {
 
 		return(
 			<Panel id={this.props.id}>
-				<PanelHeader>VK classroom</PanelHeader>
+				<PanelHeader>Fun Finder</PanelHeader>
 				{this.props.userInfo &&
 				<Group title="User Data Fetched with VK Bridge">
 					<Cell
@@ -25,11 +25,11 @@ class Home extends Component {
 					</Div>
 				<Group title='Selected cards'>
 					<List>
-						{ this.props.selected.size===0 && <h3>ничё вам ещё не понравилось</h3> }
+						{ this.props.selected.size===0 && <h3>Вам ещё ничего не понравилось. Чтобы добавить место, смахните карточку вправо.</h3> }
 						{ this.props.selected.size>0 && this.props.selected.map((card, index)=>{
 							return(
-								<Cell key={index} before={<Avatar size={24} src={card.pics[0]}/>}>
-									{card.title} {card.info.distance} {card.info.text}
+								<Cell key={card.formatted_address} before={<Avatar size={24} src={card.photo?card.photo:""}/>}>
+									{card.name} {card.rating} {card.formatted_address}
 								</Cell>
 							)
 						})}
