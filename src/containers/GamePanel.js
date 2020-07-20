@@ -28,10 +28,11 @@ class GamePanel extends Component {
 				<Button
 					size="xl" level="2"
 					onClick={()=> {
-						fetch('https://vfom.in/ClassroomWebapp/classroom?query=самара+пиццерии&opennow=false&pagetoken', {mode: 'cors'})
-							.then(response => {console.log(response); return response.json()})
-							.then(json => {console.log(json); return json;})
-							.then(json => this.props.dispatch(setCards(json.results)))
+						const opennow = "";
+						const url = 'https://vfom.in/ClassroomWebapp/classroom?query='+(this.props.userInfo.city.title?this.props.userInfo.city.title:'')+'+пиццерии'+opennow+'&pagetoken';
+						fetch(url, {mode: 'cors'})
+							.then(response => { return response.json()})
+							.then(json => { this.props.dispatch(setCards(json.results))})
 							.then(() => this.props.dispatch(setIsCardsOver(false)));
 					}}
 				>Получить карточки</Button>}

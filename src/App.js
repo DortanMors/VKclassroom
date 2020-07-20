@@ -61,6 +61,7 @@ class App extends Component{
                             router={this.props.router}
                             id="gamePanel"
 
+                            userInfo={this.props.userInfo}
                             cards={this.props.cards}
                             isCardsOver={this.props.isCardsOver}
                             gone={this.props.gone}
