@@ -1,4 +1,5 @@
 import createRouter from 'router5'
+import loggerPlugin from 'router5-plugin-logger'
 import browserPlugin from 'router5-plugin-browser'
 import routes from './routes'
 
@@ -7,7 +8,7 @@ export default function configureRouter() {
         defaultRoute: 'home'
     })
 
-    //router.usePlugin(loggerPlugin)
+    router.usePlugin(loggerPlugin)
     router.usePlugin(
             browserPlugin({
                 useHash: true
