@@ -29,6 +29,7 @@
     "eruda-code": "^2.0.0",
     "eruda-dom": "^2.0.0",
     "expo-file-system": "^8.1.0",
+    "node-jsencrypt": "^1.0.0",
     "nuka-carousel": "^4.7.0",
     "prng": "0.0.1",
     "prop-types": "^15.7.2",
