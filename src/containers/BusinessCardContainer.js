@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import { animated, interpolate } from "react-spring";
 import Carousel from "nuka-carousel";
+import { getCards, getIsCardsOver, getGone, getSelected} from '../store/reducers/cardState';
 
 class BusinessCardContainer extends Component {
 
@@ -28,10 +29,9 @@ class BusinessCardContainer extends Component {
 								<img src={pic} key={index} alt="businessPicture" />
 							))}
 						</Carousel>
-						<h2>{this.props.data.name}</h2>
-						<h5>{this.props.data.rating}</h5>
-						<h5>{this.props.data.formatted_address}</h5>
-						<h5>{this.props.data.opening_hours.open_now?"Открыто":"Закрыто"}</h5>
+						<h2>{this.props.cards[this.props.i].name}</h2>
+						<h5>{this.props.cards[this.props.i].rating}</h5>
+						<h5>{this.props.cards[this.props.i].formatted_address}</h5>
 					</div>
 				</animated.div>
 			</animated.div>

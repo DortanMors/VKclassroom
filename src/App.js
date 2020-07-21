@@ -62,11 +62,16 @@ class App extends Component{
                             id="gamePanel"
 
                             userInfo={this.props.userInfo}
+                            nextPage={this.props.nextPage}
                             cards={this.props.cards}
                             isCardsOver={this.props.isCardsOver}
                             gone={this.props.gone}
                             number={this.props.number}
                             selected={this.props.selected}
+                            cityParam={this.props.cityParam}
+                            searchParam={this.props.searchParam}
+                            prevSearch={this.props.prevSearch}
+                            deckNum={this.props.deckNum}
                         />
                     </View>
                     <View id="introView" activePanel="introPanel" popout={this.props.popout}>
@@ -104,11 +109,16 @@ function mapStateToProps(state) {
         storageKeys:  selectors.getStorageKeys(state),
         snackbar:     selectors.getSnackbar(state),
 
+        nextPage:     cardSelectors.getNextPage(state),
         cards:        cardSelectors.getCards(state),
         isCardsOver:  cardSelectors.getIsCardsOver(state),
         gone:         cardSelectors.getGone(state),
         number:       cardSelectors.getNumber(state),
-        selected:     cardSelectors.getSelected(state)
+        selected:     cardSelectors.getSelected(state),
+        cityParam:    cardSelectors.getCityParam(state),
+        searchParam:  cardSelectors.getSearchParam(state),
+        prevSearch:   cardSelectors.getPrevSearch(state),
+        deckNum:      cardSelectors.getDeckNum(state)
     };
 }
 

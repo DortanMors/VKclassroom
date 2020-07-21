@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
-import { setIsCardsOver, setCards, setSelected } from '../store/vk/actions'
+import { setIsCardsOver, setSelected } from '../store/vk/actions'
 import BusinessCardContainer from './BusinessCardContainer';
 import { getCards, getIsCardsOver, getGone, getSelected} from '../store/reducers/cardState';
 
@@ -22,7 +22,10 @@ const to = i => ({
       
 function Deck(props) {
     const [gone, setGone] = useState(new Set());
-	const [springs_props, set] = useSprings(props.cards.length, i => ({
+    const num = props.cards.length>10?
+                                10:
+                                props.cards.length-10;
+	const [springs_props, set] = useSprings(num, i => ({
 		...to(i),
 		from: from(i)
 	}));
@@ -69,11 +72,10 @@ function Deck(props) {
         };
         });
 
-        if (!down && !props.isCardsOver && (gone.size === props.cards.length) && (props.cards.length!==0) && (gone.size!==0)){
+        if (!down && !props.isCardsOver && (gone.size === num) && (num!==0) && (gone.size!==0)){
             setGone(new Set());
             
             setTimeout(() =>
-                props.dispatch(setCards([])) ||
                 props.dispatch(setIsCardsOver(true))
             , 600);
         }
@@ -81,19 +83,24 @@ function Deck(props) {
 
 	return (
 			springs_props.map((springs_prop, i) => {
-				return(
-					<BusinessCardContainer
-						i={i}
-						x={springs_prop.x}
-						y={springs_prop.y}
-						rot={springs_prop.rot}
-						scale={springs_prop.scale}
-						trans={trans}
-						data={props.cards[i]}
-						bind={bind}
-						key={i}
-					/>
-				);
+                if (i<10) {
+                    return(
+                        <BusinessCardContainer
+                            i={i}
+                            x={springs_prop.x}
+                            y={springs_prop.y}
+                            rot={springs_prop.rot}
+                            scale={springs_prop.scale}
+                            trans={trans}
+                            bind={bind}
+                            cards={props.cards}
+                            key={i}
+                        />
+                    );
+                }
+                else {
+                    return false;
+                }
                 })
 	);
 }
