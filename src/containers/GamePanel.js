@@ -38,6 +38,7 @@ class GamePanel extends Component {
 						<Input
 							name="searchparam"
 							type="text"
+							value={this.props.searchParam}
 							onChange={(e)=>this.props.dispatch(setSearchParam(e.currentTarget.value))}
 							placeholder="Что будем искать"
 						/>
