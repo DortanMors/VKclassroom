@@ -38,7 +38,12 @@ class BusinessCardContainer extends Component {
 };
 
 function mapStateToProps(state) {
-    return {};
+    return {
+        cards:       getCards(state),
+        isCardsOver: getIsCardsOver(state),
+        gone:        getGone(state),
+        selected:    getSelected(state)
+	};
 }
 
 export default connect(mapStateToProps)(BusinessCardContainer);
