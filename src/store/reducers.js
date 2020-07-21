@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, combineReducers }from 'redux';
 import { router5Middleware, router5Reducer } from 'redux-router5';
+import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import appState from './reducers/appState';
@@ -8,7 +9,8 @@ import cardState from './reducers/cardState';
 export default function configureStore(router, initialState = {}) {
     const createStoreWithMiddleware = applyMiddleware(
         thunk,
-        router5Middleware(router)
+        router5Middleware(router),
+        createLogger()
     )(createStore)
 
     const store = createStoreWithMiddleware(
