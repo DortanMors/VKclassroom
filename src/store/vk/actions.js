@@ -135,12 +135,27 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
                                         .then(response => {
                                             return response.json();
                                         });
-                    dispatch({
-                        type: 'SET_DECK_NUM',
-                        payload: json_cards.results.length>10? 0: 1
-                    });
-                    dispatch(setNextPage(json_cards.next_page_token));
-                    dispatch(setCards(json_cards.results));
+                    if (json_cards.hasOwnProperty('results')) {
+                        dispatch({
+                            type: 'SET_DECK_NUM',
+                            payload: json_cards.results.length>10? 0: 1
+                        });
+                        dispatch(setNextPage(json_cards.next_page_token));
+                        dispatch(setCards(json_cards.results));
+                    }
+                }
+                else {
+                    dispatch(setCards([{
+                                        name: "Нет результатов",
+                                        rating: 404,
+                                        formatted_address: ""
+                                    },
+                                    {
+                                        name: "Нет результатов",
+                                        rating: 404,
+                                        formatted_address: ""
+                                        }])
+                    );
                 }
             }
         } 
@@ -151,12 +166,26 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
                                 .then(response => {
                                     return response.json();
                                 });
+            if (!json_cards.hasOwnProperty('results')){
+                dispatch(setCards([{
+                    name: "Нет результатов",
+                    rating: 404,
+                    formatted_address: ""
+                    },{
+                        name: "Нет результатов",
+                        rating: 404,
+                        formatted_address: ""
+                        }])
+                );
+            }
+            else {
             dispatch(setNextPage(json_cards.next_page_token));
             dispatch({
                 type: 'SET_DECK_NUM',
                 payload: json_cards.results.length>10? 0: 1
             });
             dispatch(setCards(json_cards.results));
+            }
             dispatch({
                 type: 'SET_PREV_SEARCH',
                 payload: query
