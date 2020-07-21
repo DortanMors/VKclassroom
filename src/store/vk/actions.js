@@ -117,8 +117,9 @@ export function setNextPage(token){
 
 export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, cards){
     return async (dispatch) => {
-        if ((query===prevSearch)) {
-            if (deckNum===0) {
+        const request = city+" "+query;
+        if ((request)===prevSearch) {
+            if (deckNum<3) {
                 dispatch({
                     type: 'SET_DECK_NUM',
                     payload: deckNum+1
@@ -158,7 +159,7 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, 
         } 
         else {
             const url = 'https://vfom.in/ClassroomWebapp/classroom?query='
-                        +city+" "+query+opennow+nextPage;
+                        +request+opennow+nextPage;
             const json_cards = await fetch(url, {mode: 'cors'})
                                 .then(response => {
                                     return response.json();
@@ -182,7 +183,7 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, 
             }
             dispatch({
                 type: 'SET_PREV_SEARCH',
-                payload: query
+                payload: city+" "+query
             });
         }
         dispatch(setIsCardsOver(false));
