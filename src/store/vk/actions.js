@@ -115,16 +115,17 @@ export function setNextPage(token){
     }
 }
 
-export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
+export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, cards){
     return async (dispatch) => {
         if ((query===prevSearch)) {
             if (deckNum===0) {
                 dispatch({
                     type: 'SET_DECK_NUM',
-                    payload: 1
+                    payload: deckNum+1
                 });
+                dispatch(setCards(cards.slice(5)));
             }
-            else if (deckNum===1) {
+            else if ((deckNum===3) || (cards.length<5)) {
                 dispatch({
                     type: 'SET_DECK_NUM',
                     payload: 0
@@ -138,7 +139,7 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
                     if (json_cards.hasOwnProperty('results')) {
                         dispatch({
                             type: 'SET_DECK_NUM',
-                            payload: json_cards.results.length>10? 0: 1
+                            payload: 0
                         });
                         dispatch(setNextPage(json_cards.next_page_token));
                         dispatch(setCards(json_cards.results));

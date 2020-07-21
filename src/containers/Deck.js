@@ -25,6 +25,9 @@ function Deck(props) {
     const num = props.cards.length>10?
                                 10:
                                 props.cards.length-10;
+    const num = props.cards.length>5?
+                                5:
+                                props.cards.length;
 	const [springs_props, set] = useSprings(num, i => ({
 		...to(i),
 		from: from(i)
@@ -82,8 +85,7 @@ function Deck(props) {
     });
 
 	return (
-			springs_props.map((springs_prop, i) => {
-                if (i<10) {
+			springs_props.slice(0,5).map((springs_prop, i) => {
                     return(
                         <BusinessCardContainer
                             i={i}
@@ -97,10 +99,6 @@ function Deck(props) {
                             key={i}
                         />
                     );
-                }
-                else {
-                    return false;
-                }
                 })
 	);
 }

@@ -53,7 +53,8 @@ class GamePanel extends Component {
 													this.props.searchParam,
 													opennow,
 													this.props.prevSearch,
-													this.props.deckNum)
+													this.props.deckNum,
+													this.props.cards)
 												);
 						}}
 					>Получить карточки</Button>
