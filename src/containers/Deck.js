@@ -25,6 +25,9 @@ function Deck(props) {
     const num = props.cards.length>5?
                                 5:
                                 props.cards.length;
+    if (num===0) {
+        props.dispatch(setIsCardsOver(true));
+    }
 	const [springs_props, set] = useSprings(num, i => ({
 		...to(i),
 		from: from(i)
@@ -46,7 +49,7 @@ function Deck(props) {
         if (!down && trigger){
             const new_gone = gone;
             new_gone.add(index);
-            if (dir===1){
+            if (dir===1 && props.cards[index].rating!==404){
                 const new_selected = props.selected;
                 new_selected.add(props.cards[index]);
                 props.dispatch(setSelected(new_selected));
@@ -72,7 +75,7 @@ function Deck(props) {
         };
         });
 
-        if (!down && !props.isCardsOver && (gone.size === num) && (num!==0) && (gone.size!==0)){
+        if (!down && !props.isCardsOver && (gone.size === num)){
             setGone(new Set());
             
             setTimeout(() =>

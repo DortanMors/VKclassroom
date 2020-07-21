@@ -149,13 +149,9 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, 
                     dispatch(setCards([{
                                         name: "Нет результатов",
                                         rating: 404,
-                                        formatted_address: ""
-                                    },
-                                    {
-                                        name: "Нет результатов",
-                                        rating: 404,
-                                        formatted_address: ""
-                                        }])
+                                        formatted_address: "",
+                                        photo: 'https://w7.pngwing.com/pngs/777/110/png-transparent-sadness-smiley-emoticon-smiley-miscellaneous-face-head.png'
+                                    }])
                     );
                 }
             }
@@ -171,12 +167,9 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, 
                 dispatch(setCards([{
                     name: "Нет результатов",
                     rating: 404,
-                    formatted_address: ""
-                    },{
-                        name: "Нет результатов",
-                        rating: 404,
-                        formatted_address: ""
-                        }])
+                    formatted_address: "",
+                    photo: 'https://w7.pngwing.com/pngs/777/110/png-transparent-sadness-smiley-emoticon-smiley-miscellaneous-face-head.png'
+                    }])
                 );
             }
             else {
