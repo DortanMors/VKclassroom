@@ -25,8 +25,11 @@ class Home extends Component {
 					</Div>
 				<Group title='Selected cards'>
 					<List>
-						{ this.props.selected.size===0 && <h3>Вам ещё ничего не понравилось. Чтобы добавить место, смахните карточку вправо.</h3> }
-						{ this.props.selected.size>0 && this.props.selected.map((card, index)=>{
+						{ this.props.selected.size===0 && 
+						<Div>
+							<h3>Вы ещё ничего не выбрали. Чтобы добавить место, смахните карточку вправо.</h3> 
+						</Div>}
+						{ this.props.selected.size>0 && this.props.selected.map((card)=>{
 							return(
 								<Cell key={card.formatted_address} before={<Avatar size={24} src={card.photo?card.photo:""}/>}>
 									{card.name} {card.rating} {card.formatted_address}
