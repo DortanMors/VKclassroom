@@ -58,6 +58,7 @@ button[aria-label="previous"],
 button[aria-label="next"] {
   background: salmon !important;
   color: black !important;
+  visibility: hidden;
 }
 
 h2 {
