@@ -60,6 +60,10 @@ export function fetchData(STORAGE_KEYS){
             payload: user
         })
         dispatch({
+            type: 'SET_CITY_PARAM',
+            payload: user.city?user.city.title:""
+        })
+        dispatch({
             type: "SET_POPOUT",
             payload: null
         })
@@ -105,6 +109,89 @@ export function setStorageSawIntro(STORAGE_KEYS){
     }
 }
 
+export function setNextPage(token){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_NEXT_PAGE',
+            payload: token
+        });
+    }
+}
+
+export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
+    return async (dispatch) => {
+        if ((query===prevSearch)) {
+            if (deckNum===0) {
+                dispatch({
+                    type: 'SET_DECK_NUM',
+                    payload: 1
+                });
+            }
+            else if (deckNum===1) {
+                dispatch({
+                    type: 'SET_DECK_NUM',
+                    payload: 0
+                });
+                if (nextPage.length > 0) {
+                    const url = 'https://vfom.in/ClassroomWebapp/classroom?pagetoken='+nextPage;
+                    console.log(url); // delete
+                    const json_cards = await fetch(url, {mode: 'cors'})
+                                        .then(response => {
+                                            console.log(response); // delete
+                                            return response.json();
+                                        });
+                    console.log(json_cards); // delete
+                    dispatch({
+                        type: 'SET_DECK_NUM',
+                        payload: json_cards.results.length>10? 0: 1
+                    });
+                    dispatch(setNextPage(json_cards.next_page_token));
+                    dispatch(setCards(json_cards.results));
+                }
+            }
+        } 
+        else {
+            const url = 'https://vfom.in/ClassroomWebapp/classroom?query='
+                        +city+" "+query+opennow+nextPage;
+            console.log(url); // delete
+            const json_cards = await fetch(url, {mode: 'cors'})
+                                .then(response => {
+                                    console.log(response); // delete
+                                    return response.json();
+                                });
+            console.log(json_cards); // delete
+            dispatch(setNextPage(json_cards.next_page_token));
+            dispatch({
+                type: 'SET_DECK_NUM',
+                payload: json_cards.results.length>10? 0: 1
+            });
+            dispatch(setCards(json_cards.results));
+            dispatch({
+                type: 'SET_PREV_SEARCH',
+                payload: query
+            });
+        }
+        dispatch(setIsCardsOver(false));
+    }
+}
+
+export function setCityParam(city){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_CITY_PARAM',
+            payload: city
+        })
+    }
+}
+
+export function setSearchParam(search){
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_SEARCH_PARAM',
+            payload: search
+        })
+    }
+}
 
 export function setSelected(selected){
     return (dispatch) => {

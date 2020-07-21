@@ -3,11 +3,41 @@ const initialState = {
   number: 2,
   gone: new Set(),
   selected: new Set(),
-  isCardsOver: true
+  isCardsOver: true,
+  nextPage: "",
+  cityParam: "",
+  searchParam: "",
+  prevSearch: "",
+  deckNum: 0
 }
   
 export default function cardState(state = initialState, action) {
   switch(action.type) {
+    case 'SET_DECK_NUM':
+      return {
+        ...state,
+        deckNum: action.payload
+      }
+    case 'SET_PREV_SEARCH':
+      return {
+        ...state,
+        prevSearch: action.payload
+      }
+    case 'SET_CITY_PARAM':
+      return {
+        ...state,
+        cityParam: action.payload
+      }
+    case 'SET_SEARCH_PARAM':
+      return {
+        ...state,
+        searchParam: action.payload
+      }
+    case 'SET_NEXT_PAGE':
+      return {
+        ...state,
+        nextPage: action.payload
+      }
     case 'SET_CARDS':
       return {
         ...state,
@@ -56,4 +86,24 @@ export function getGone(state){
 
 export function getNumber(state){
   return state.cardState.number
+}
+
+export function getNextPage(state){
+  return state.cardState.nextPage
+}
+
+export function getCityParam(state){
+  return state.cardState.cityParam
+}
+
+export function getSearchParam(state){
+  return state.cardState.searchParam
+}
+
+export function getPrevSearch(state){
+  return state.cardState.prevSearch
+}
+
+export function getDeckNum(state){
+  return state.cardState.deckNum
 }
