@@ -118,7 +118,7 @@ export function setNextPage(token){
 export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, cards){
     return async (dispatch) => {
         const request = city+" "+query;
-        if ((request)===prevSearch) {
+        if (request===prevSearch) {
             if (deckNum<3) {
                 dispatch({
                     type: 'SET_DECK_NUM',
