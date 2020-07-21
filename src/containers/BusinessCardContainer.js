@@ -25,9 +25,7 @@ class BusinessCardContainer extends Component {
 				>
 					<div className="card">
 						<Carousel>
-							{this.props.data.photo && this.props.data.pics.map((pic, index) => (
-								<img src={pic} key={index} alt="businessPicture" />
-							))}
+							<img src={this.props.cards[this.props.i].photo} alt="businessPicture" />
 						</Carousel>
 						<h2>{this.props.cards[this.props.i].name}</h2>
 						<h5>{this.props.cards[this.props.i].rating}</h5>
