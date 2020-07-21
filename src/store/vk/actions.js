@@ -33,7 +33,6 @@ export function fetchData(STORAGE_KEYS){
         const storageData = await bridge.send('VKWebAppStorageGet', {
             keys: Object.values(STORAGE_KEYS)
         });
-        console.log(storageData); // удалить
         const data = {};
         storageData.keys.forEach(({key,value}) => {
             try{
@@ -76,7 +75,6 @@ export function fetchDocs(){
         // TODO: получать app_id из конфига
         const token = await bridge.send('VKWebAppGetAuthToken', {
             app_id: 7472666, scope: 'friends,status,docs'});
-        console.log(token); // удалить
         dispatch({
             type: 'UPDATE_ACCESSTOKEN',
             payload: token
@@ -90,7 +88,6 @@ export function fetchDocs(){
                 access_token: token.access_token
             }
         });
-        console.log(docs); // удалить
         dispatch({
             type: 'UPDATE_USERDOCS',
             payload: docs
@@ -134,13 +131,10 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
                 });
                 if (nextPage.length > 0) {
                     const url = 'https://vfom.in/ClassroomWebapp/classroom?pagetoken='+nextPage;
-                    console.log(url); // delete
                     const json_cards = await fetch(url, {mode: 'cors'})
                                         .then(response => {
-                                            console.log(response); // delete
                                             return response.json();
                                         });
-                    console.log(json_cards); // delete
                     dispatch({
                         type: 'SET_DECK_NUM',
                         payload: json_cards.results.length>10? 0: 1
@@ -153,13 +147,10 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum){
         else {
             const url = 'https://vfom.in/ClassroomWebapp/classroom?query='
                         +city+" "+query+opennow+nextPage;
-            console.log(url); // delete
             const json_cards = await fetch(url, {mode: 'cors'})
                                 .then(response => {
-                                    console.log(response); // delete
                                     return response.json();
                                 });
-            console.log(json_cards); // delete
             dispatch(setNextPage(json_cards.next_page_token));
             dispatch({
                 type: 'SET_DECK_NUM',

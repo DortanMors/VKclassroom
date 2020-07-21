@@ -8,7 +8,6 @@ import { getCards, getIsCardsOver, getGone, getSelected} from '../store/reducers
 class BusinessCardContainer extends Component {
 
 	render() {
-		console.log(this.props.i, this.props.cards, this.props.cards[this.props.i]);
 		return(
 			<animated.div
 				key={this.props.i}
