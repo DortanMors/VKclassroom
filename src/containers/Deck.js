@@ -22,9 +22,6 @@ const to = i => ({
       
 function Deck(props) {
     const [gone, setGone] = useState(new Set());
-    const num = props.cards.length>10?
-                                10:
-                                props.cards.length-10;
     const num = props.cards.length>5?
                                 5:
                                 props.cards.length;
