@@ -134,9 +134,7 @@ export function fetchCards(city, nextPage, query, opennow, prevSearch, deckNum, 
                 if (nextPage.length > 0) {
                     const url = 'https://vfom.in/ClassroomWebapp/classroom?pagetoken='+nextPage;
                     const json_cards = await fetch(url, {mode: 'cors'})
-                                        .then(response => {
-                                            return response.json();
-                                        });
+                                        .then(response => response.json());
                     if (json_cards.hasOwnProperty('results')) {
                         dispatch({
                             type: 'SET_DECK_NUM',
