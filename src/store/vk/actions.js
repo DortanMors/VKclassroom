@@ -27,7 +27,7 @@ export function initApp(){
     }
 }
 
-export function fetchData(STORAGE_KEYS){
+export function fetchData(STORAGE_KEYS, go){
     return async (dispatch) => {
         const user = await bridge.send('VKWebAppGetUserInfo');
         const storageData = await bridge.send('VKWebAppStorageGet', {
@@ -45,6 +45,7 @@ export function fetchData(STORAGE_KEYS){
                                 type: 'UPDATE_USERSAWINTRO',
                                 payload: true
                             });
+                            go('home');
                         }
                         break;
                     default:
