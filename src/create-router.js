@@ -4,7 +4,7 @@ import routes from './routes'
 
 export default function configureRouter() {
     const router = createRouter(routes, {
-        defaultRoute: 'home'
+        defaultRoute: 'intro'
     })
 
     router.usePlugin(
