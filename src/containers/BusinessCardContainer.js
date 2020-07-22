@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 
 import { animated, interpolate } from "react-spring";
 import Carousel from "nuka-carousel";
-import { getCards, getIsCardsOver, getGone, getSelected} from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getSelected} from '../store/reducers/cardState';
 
 class BusinessCardContainer extends Component {
 
 	render() {
+		const card = this.props.cards[this.props.i];
 		return(
 			<animated.div
 				key={this.props.i}
@@ -25,11 +26,10 @@ class BusinessCardContainer extends Component {
 				>
 					<div className="card">
 						<Carousel>
-							<img src={this.props.cards[this.props.i].photo} alt="businessPicture" />
 						</Carousel>
-						<h2>{this.props.cards[this.props.i].name}</h2>
-						<h5>{this.props.cards[this.props.i].rating}</h5>
-						<h5>{this.props.cards[this.props.i].formatted_address}</h5>
+						<h2>{card.name}</h2>
+						<h5>{'★'+card.rating} {card.opening_hours.open_now?"Открыто":"Закрыто"}</h5>
+						<h5>{card.formatted_address}</h5>
 					</div>
 				</animated.div>
 			</animated.div>
@@ -41,7 +41,6 @@ function mapStateToProps(state) {
     return {
         cards:       getCards(state),
         isCardsOver: getIsCardsOver(state),
-        gone:        getGone(state),
         selected:    getSelected(state)
 	};
 }

@@ -69,32 +69,6 @@ export function fetchData(STORAGE_KEYS){
     }
 }
 
-export function fetchDocs(){
-    return async (dispatch) => {
-        // TODO: переписать с получением токена
-        // TODO: получать app_id из конфига
-        const token = await bridge.send('VKWebAppGetAuthToken', {
-            app_id: 7472666, scope: 'friends,status,docs'});
-        dispatch({
-            type: 'UPDATE_ACCESSTOKEN',
-            payload: token
-        });
-        const docs = await bridge.send('VKWebAppCallAPIMethod', {
-            method: 'docs.get', params: {
-                count: 5,
-                offset:0,
-                type: 0,
-                v: '5.103',
-                access_token: token.access_token
-            }
-        });
-        dispatch({
-            type: 'UPDATE_USERDOCS',
-            payload: docs
-        });
-    }
-}
-
 export function setStorageSawIntro(STORAGE_KEYS){
     return async (dispatch) => {
         await bridge.send('VKWebAppStorageSet',{
@@ -233,20 +207,8 @@ export function setCards(cards){
     })
 }
 
-export function setGone(gone){
-    return (dispatch => {
-        dispatch({
-            type: 'SET_GONE',
-            payload: gone
-        })
-    })
-}
 
-export function setNumber(number){
     return (dispatch => {
         dispatch({
-            type: 'SET_NUMBER',
-            payload: number
-        })
     })
 }

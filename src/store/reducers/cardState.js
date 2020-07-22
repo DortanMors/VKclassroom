@@ -1,6 +1,5 @@
 const initialState = {
   cards: [],
-  number: 2,
   gone: new Set(),
   selected: new Set(),
   isCardsOver: true,
@@ -43,11 +42,6 @@ export default function cardState(state = initialState, action) {
         ...state,
         cards: action.payload
       }
-    case 'SET_NUMBER':
-      return {
-        ...state,
-        number: action.payload
-      }
     case 'SET_GONE':
       return {
         ...state,
@@ -82,10 +76,6 @@ export function getIsCardsOver(state){
 
 export function getGone(state){
   return state.cardState.gone
-}
-
-export function getNumber(state){
-  return state.cardState.number
 }
 
 export function getNextPage(state){

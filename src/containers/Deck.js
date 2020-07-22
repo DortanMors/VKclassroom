@@ -4,7 +4,7 @@ import { useSprings } from "react-spring";
 import { useGesture } from "react-with-gesture";
 import { setIsCardsOver, setSelected } from '../store/vk/actions'
 import BusinessCardContainer from './BusinessCardContainer';
-import { getCards, getIsCardsOver, getGone, getSelected} from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getSelected} from '../store/reducers/cardState';
 
 const to = i => ({
 	x: 0,
@@ -38,7 +38,6 @@ function Deck(props) {
         args: [index],
         down,
         delta: [xDelta],
-        distance,
         direction: [xDir],
         velocity
     }) => {
@@ -107,7 +106,6 @@ function mapStateToProps(state) {
     return {
         cards:       getCards(state),
         isCardsOver: getIsCardsOver(state),
-        gone:        getGone(state),
         selected:    getSelected(state)
     };
 }

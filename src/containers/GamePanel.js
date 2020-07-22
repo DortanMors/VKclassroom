@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import '../styles/GamePanel.css';
 import { Panel, PanelHeader, Button, FormLayout, Input, FormLayoutGroup} from '@vkontakte/vkui';
 
-import { getCards, getIsCardsOver, getGone, getNumber, getSelected, getCityParam, getSearchParam, getNextPage, getPrevSearch, getDeckNum } from '../store/reducers/cardState';
+import { getCards, getIsCardsOver, getSelected, getCityParam, getSearchParam, getNextPage, getPrevSearch, getDeckNum } from '../store/reducers/cardState';
 import { fetchCards, setCityParam, setSearchParam } from '../store/vk/actions';
 import Deck from './Deck';
 
@@ -21,7 +21,6 @@ class GamePanel extends Component {
 					id={this.props.id}
 					router={this.props.router}
 					
-					gone={this.props.gone}
 					cards={this.props.cards}
 					selected={this.props.selected}
 				/>}
@@ -70,8 +69,6 @@ function mapStateToProps(state) {
     return {
 		cards:		 getCards(state),
 		isCardsOver: getIsCardsOver(state),
-		gone: 		 getGone(state),
-		number:		 getNumber(state),
 		selected:    getSelected(state),
 		cityParam:   getCityParam(state),
 		searchParam: getSearchParam(state),

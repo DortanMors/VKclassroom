@@ -9,15 +9,6 @@ class Home extends Component {
 		return(
 			<Panel id={this.props.id}>
 				<PanelHeader>Fun Finder</PanelHeader>
-				{this.props.userInfo &&
-				<Group title="User Data Fetched with VK Bridge">
-					<Cell
-						before={this.props.userInfo.photo_200 ? <Avatar src={this.props.userInfo.photo_200}/> : null}
-						description={this.props.userInfo.city && this.props.userInfo.city.title ? this.props.userInfo.city.title : ''}
-					>
-						{`${this.props.userInfo.first_name} ${this.props.userInfo.last_name}`}
-					</Cell>
-				</Group>}
 				<Div>
 						<h1> 
 							Вам понравилось:
@@ -29,7 +20,7 @@ class Home extends Component {
 						<Div>
 							<h3>Вы ещё ничего не выбрали. Чтобы добавить место, смахните карточку вправо.</h3> 
 						</Div>}
-						{ this.props.selected.size>0 && this.props.selected.map((card)=>{
+						{ this.props.selected.size>0 && [...this.props.selected].map((card, i)=>{
 							return(
 								<Cell key={card.formatted_address} before={<Avatar size={24} src={card.photo?card.photo:""}/>}>
 									{card.name} {card.rating} {card.formatted_address}

@@ -51,7 +51,6 @@ class App extends Component{
                             id="homePanel"
 
                             accessToken={this.props.accessToken}
-                            userDocs={this.props.userDocs}
                             userInfo={this.props.userInfo}
                             selected={this.props.selected}
                         />
@@ -88,14 +87,6 @@ class App extends Component{
             </ConfigProvider>
 		);
     }
-    
-    openHome() {
-        this.props.router.navigate('home');
-    }
-
-    openIntro() {
-        this.props.router.navigate('intro');
-    }
 }
 
 
@@ -103,7 +94,6 @@ function mapStateToProps(state) {
     return {
         accessToken:  selectors.getAccessToken(state),
         popout:       selectors.getPopout(state),
-        userDocs:     selectors.getUserDocs(state),
         userInfo:     selectors.getUserInfo(state),
         userSawIntro: selectors.getUserSawIntro(state),
         storageKeys:  selectors.getStorageKeys(state),
@@ -112,8 +102,6 @@ function mapStateToProps(state) {
         nextPage:     cardSelectors.getNextPage(state),
         cards:        cardSelectors.getCards(state),
         isCardsOver:  cardSelectors.getIsCardsOver(state),
-        gone:         cardSelectors.getGone(state),
-        number:       cardSelectors.getNumber(state),
         selected:     cardSelectors.getSelected(state),
         cityParam:    cardSelectors.getCityParam(state),
         searchParam:  cardSelectors.getSearchParam(state),

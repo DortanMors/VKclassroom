@@ -1,18 +1,9 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { Panel, PanelHeader, Avatar, FixedLayout, Button, Div, Snackbar } from '@vkontakte/vkui'
-import Icon24Error from '@vkontakte/icons/dist/24/error';
-import { setStorageSawIntro, setJustOpened } from '../store/vk/actions'
-
-import '@vkontakte/vkui/dist/vkui.css';
+import { setStorageSawIntro } from '../store/vk/actions'
 
 class Intro extends Component {
-	componentDidMount(){
-		if (this.props.userSawIntro && this.props.justOpened){
-			this.props.router.navigate('home');
-			this.props.dispatch(setJustOpened(false));
-		}
-	}
 
 	render() {
 		return (
