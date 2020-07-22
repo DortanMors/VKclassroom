@@ -26,6 +26,7 @@ class BusinessCardContainer extends Component {
 				>
 					<div className="card">
 						<Carousel>
+							<img src={card.photo} alt="businessPicture" />
 						</Carousel>
 						<h2>{card.name}</h2>
 						<h5>{'★'+card.rating} {card.opening_hours.open_now?"Открыто":"Закрыто"}</h5>

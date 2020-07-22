@@ -11,10 +11,11 @@ import Intro from './containers/Intro';
 import Footer from './containers/Footer';
 
 import '@vkontakte/vkui/dist/vkui.css';
+import CardModal from './containers/CardModal';
 class App extends Component{
 	componentDidMount() {
         this.props.dispatch(vkActions.initApp());
-        this.props.dispatch(vkActions.fetchData(this.props.storageKeys));
+        this.props.dispatch(vkActions.fetchData(this.props.storageKeys, this.props.router.navigate));
 	}
 	
 	render(){
@@ -39,13 +40,14 @@ class App extends Component{
                 <Epic 
                     activeStory={activeStory}
                     tabbar={<Footer 
-                        route={this.props.route}
-                        router={this.props.router}
-                        open={this.props.router.navigate}
-                        onTransition={()=> console.log('Переключено!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')}
+                    route={this.props.route}
+                    router={this.props.router}
+                    open={this.props.router.navigate}
+                    onTransition={()=> console.log('Переключено!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')}
                     />}
                 >
-                    <View id="homeView" activePanel="homePanel" popout={this.props.popout}>
+                    <View id="homeView" activePanel="homePanel" popout={this.props.popout}
+                          modal={<CardModal modalStatus={this.props.modalStatus} selectedCard={this.props.selectedCard} selected={this.props.selected}/>}>
                         <Home 
                             router={this.props.router}
                             id="homePanel"
@@ -77,6 +79,7 @@ class App extends Component{
                         <Intro 
                             router={this.props.router}
                             id="introPanel"
+                            popout={this.props.popout}
                             userSawIntro={this.props.userSawIntro}
                             userInfo={this.props.userInfo}
                             storageKeys={this.props.storageKeys}
@@ -106,7 +109,9 @@ function mapStateToProps(state) {
         cityParam:    cardSelectors.getCityParam(state),
         searchParam:  cardSelectors.getSearchParam(state),
         prevSearch:   cardSelectors.getPrevSearch(state),
-        deckNum:      cardSelectors.getDeckNum(state)
+        deckNum:      cardSelectors.getDeckNum(state),
+        modalStatus:  cardSelectors.getModalStatus(state),
+        selectedCard: cardSelectors.getSelectedCard(state)
     };
 }
 

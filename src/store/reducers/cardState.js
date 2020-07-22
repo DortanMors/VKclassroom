@@ -7,11 +7,23 @@ const initialState = {
   cityParam: "",
   searchParam: "",
   prevSearch: "",
-  deckNum: 0
+  deckNum: 0,
+  modalStatus: null,
+  selectedCard: 0
 }
   
 export default function cardState(state = initialState, action) {
   switch(action.type) {
+    case 'SET_MODAL_STATUS':
+      return {
+        ...state,
+        modalStatus: action.payload
+      }
+    case 'SET_SELECTED_CARD':
+      return {
+        ...state,
+        selectedCard: action.payload
+      }
     case 'SET_DECK_NUM':
       return {
         ...state,
@@ -96,4 +108,12 @@ export function getPrevSearch(state){
 
 export function getDeckNum(state){
   return state.cardState.deckNum
+}
+
+export function getSelectedCard(state){
+  return state.cardState.selectedCard
+}
+
+export function getModalStatus(state){
+  return state.cardState.modalStatus
 }

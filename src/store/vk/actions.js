@@ -207,8 +207,18 @@ export function setCards(cards){
     })
 }
 
+export function setModal(status, num){
 
     return (dispatch => {
         dispatch({
+            type: 'SET_MODAL_STATUS',
+            payload: status
+        });
+        if (status){
+            dispatch({
+                type: 'SET_SELECTED_CARD',
+                payload: num
+            });
+        }
     })
 }
